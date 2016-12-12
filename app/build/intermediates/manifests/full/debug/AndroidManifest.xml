@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xmu.supertractor"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/FullScreenTheme" >
+        <activity
+            android:name="com.xmu.supertractor.activity.MainActivity"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.BluetoothServerActivity"
+            android:label="Wait"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.BluetoothClientActivity"
+            android:label="Connect"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.GameActivity"
+            android:label="Game"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.RoomActivity"
+            android:label="Room"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.WifiServerActivity"
+            android:label="WifiServer"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xmu.supertractor.activity.WifiClientActivity"
+            android:label="WifiClient"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.xmu.supertractor.connection.wifi.service.WifiClientConnectService"
+            android:enabled="true" />
+        <service
+            android:name="com.xmu.supertractor.connection.wifi.service.WifiServerConnectService"
+            android:enabled="true" />
+        <service
+            android:name="com.xmu.supertractor.connection.bluetooth.service.BlueServerConnectService"
+            android:enabled="true" />
+        <service
+            android:name="com.xmu.supertractor.connection.bluetooth.service.BlueClientConnectService"
+            android:enabled="true" />
+        <service
+            android:name="com.xmu.supertractor.desk.DeskService"
+            android:enabled="true" />
+        <service
+            android:name="com.xmu.supertractor.player.PlayerService"
+            android:enabled="true" />
+
+        <uses-library android:name="android.test.runner" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

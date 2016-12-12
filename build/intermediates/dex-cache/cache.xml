@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.4.0_b2766823695bb25df47aa0273e79109412337161.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-8.1.0_6a4cbf42b2e527d4829983b098487648795a719c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.4.0_5a7762ff2ad901ad7d5455a9d3c6af983673f1ec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.4.0_b2766823695bb25df47aa0273e79109412337161.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.4.0_5a7762ff2ad901ad7d5455a9d3c6af983673f1ec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-8.1.0_6a4cbf42b2e527d4829983b098487648795a719c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.4.0_431d9e75df05b2a727ba3532caeef2bbcbcd3018.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-8.1.0_05c9a1f8e313e4a2249bc1eebe6d1dd252bc598a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\bbtbo\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_a481338bca59366fc676bd5e03a601f652a15c93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\bbtbo\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_a481338bca59366fc676bd5e03a601f652a15c93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.4.0_9e1bc4fb14fc1738a731c043d69d4ed90f061b61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-8.1.0_05c9a1f8e313e4a2249bc1eebe6d1dd252bc598a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.4.0_431d9e75df05b2a727ba3532caeef2bbcbcd3018.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.4.0_9e1bc4fb14fc1738a731c043d69d4ed90f061b61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_5f71f47e55b956fbdc51179fffa17f53a84d6f94.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_5f71f47e55b956fbdc51179fffa17f53a84d6f94.jar" />
+    </item>
+
+</items>

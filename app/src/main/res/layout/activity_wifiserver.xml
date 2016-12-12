@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:keepScreenOn="true"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_wifis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="连接状态：" />
+
+    <TextView
+        android:id="@+id/tv_wificonstate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_wifis"
+        android:layout_toRightOf="@+id/tv_wifis"
+        android:text="  " />
+
+    <TextView
+        android:id="@+id/tv_showip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_wifis"
+        android:layout_below="@+id/tv_wifis"
+        android:layout_marginTop="15dp"
+        android:text="IP地址：" />
+
+    <TextView
+        android:id="@+id/tv_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_showip"
+        android:layout_alignBottom="@+id/tv_showip"
+        android:layout_toRightOf="@+id/tv_showip"
+        android:text=" " />
+
+    <ListView
+        android:id="@+id/lv_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/tv_mid"
+        android:layout_alignLeft="@+id/tv_showip"
+        android:layout_alignRight="@+id/tv_mid"
+        android:layout_alignStart="@+id/tv_showip"
+        android:layout_below="@+id/tv_playerlist"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/bt_start_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="开始游戏" />
+
+    <TextView
+        android:id="@+id/tv_playerlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_showip"
+        android:layout_alignStart="@+id/tv_showip"
+        android:layout_below="@+id/tv_showip"
+        android:layout_marginTop="15dp"
+        android:text="玩家列表：" />
+
+    <Button
+        android:id="@+id/bt_wifi_con_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_ip"
+        android:layout_alignBottom="@+id/tv_ip"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp"
+        android:layout_toEndOf="@+id/bt_start_wifi"
+        android:layout_toRightOf="@+id/bt_start_wifi"
+        android:text="WIFI连接状态" />
+
+    <RadioGroup
+        android:id="@+id/rd_new_or_not"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_showpartner"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_mid"
+        android:contentDescription="新游戏"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rd_newgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="新游戏" />
+
+        <RadioButton
+            android:id="@+id/rd_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="自定义" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_showpartner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rd_new_or_not"
+        android:layout_alignStart="@+id/rd_new_or_not"
+        android:layout_alignBottom="@+id/tv_playerlist"
+        android:layout_marginTop="12dp"
+        android:text="对家：" />
+
+    <TextView
+        android:id="@+id/tv_partnerwifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_showpartner"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="14dp"
+        android:layout_toEndOf="@+id/tv_showpartner"
+        android:layout_toRightOf="@+id/tv_showpartner"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_printzhuang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_showpartner"
+        android:layout_alignStart="@+id/tv_showpartner"
+        android:layout_below="@+id/rd_new_or_not"
+        android:layout_marginTop="10dp"
+        android:text="庄家：" />
+
+    <TextView
+        android:id="@+id/tv_zhuangwifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_printzhuang"
+        android:layout_toEndOf="@+id/tv_printzhuang"
+        android:layout_toRightOf="@+id/tv_printzhuang"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_show_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_printzhuang"
+        android:layout_below="@+id/tv_printzhuang"
+        android:layout_marginTop="10dp"
+        android:text="等级：" />
+
+    <TextView
+        android:id="@+id/tv_levela_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_partnerwifi"
+        android:layout_alignStart="@+id/tv_partnerwifi"
+        android:layout_alignBottom="@+id/tv_show_level"
+        android:ems="2"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/tv_level_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_show_level"
+        android:layout_toRightOf="@+id/tv_levela_wifi"
+        android:text="v" />
+
+    <TextView
+        android:id="@+id/tv_levelb_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_show_level"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_level_mid"
+        android:ems="2"
+        android:inputType="number" />
+
+
+
+
+    <TextView
+        android:text="主级别：  "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_levelb_wifi"
+        android:layout_alignStart="@+id/tv_show_level"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_printmain"
+        android:layout_alignLeft="@+id/tv_show_level" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_printmain"
+        android:layout_toRightOf="@+id/tv_printmain"
+        android:layout_toEndOf="@+id/tv_printmain"
+        android:id="@+id/tv_mainlevel_wifi" />
+
+
+</RelativeLayout>

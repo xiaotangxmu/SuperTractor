@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\raw\\throw_fail.mp3",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\raw\\throw_fail.mp3"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\raw\\background.png",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\raw\\background.png"
+    }
+]

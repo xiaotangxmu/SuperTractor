@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:keepScreenOn="true"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="14dp"
+        android:text="1" />
+
+    <TextView
+        android:id="@+id/tv_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_num"
+        android:layout_marginRight="1dp"
+        android:layout_toLeftOf="@+id/tv_num"
+        android:text="玩家数：" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv_num"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/lv_servershow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_showname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="14dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/bt_opensearch"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bt_start"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:text="蓝牙可见" />
+
+    <Button
+        android:id="@+id/bt_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:text="开始游戏" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:hint="对家编号"
+        android:id="@+id/et_partner"
+        android:layout_alignBottom="@+id/bt_start"
+        android:layout_toRightOf="@+id/bt_opensearch" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/ed_levela"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/bt_start"
+        android:layout_alignBottom="@id/bt_start"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="V"
+        android:id="@+id/tv_hint"
+        android:layout_alignBaseline="@id/bt_start"
+        android:layout_toRightOf="@id/ed_levela"/>
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/ed_levelb"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/tv_hint"
+        android:layout_alignBottom="@id/bt_start"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="庄:"
+        android:textSize="22sp"
+        android:id="@+id/tv_zhuang"
+        android:layout_alignBaseline="@id/bt_start"
+        android:layout_toRightOf="@id/et_partner"
+        android:layout_marginLeft="10dp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="主打:"
+        android:textSize="22sp"
+        android:id="@+id/tv_zhuji"
+        android:layout_alignBaseline="@id/bt_start"
+        android:layout_toRightOf="@id/ed_levelb"
+        android:layout_marginLeft="5dp"
+        />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:textSize="22sp"
+        android:id="@+id/ed_zhuang"
+        android:layout_alignBottom="@id/bt_start"
+        android:layout_toRightOf="@+id/tv_zhuang"
+
+         />
+
+    <EditText
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/et_main_level"
+        android:layout_alignBottom="@+id/ed_levelb"
+        android:layout_toRightOf="@+id/tv_zhuji"
+         />
+
+</RelativeLayout>

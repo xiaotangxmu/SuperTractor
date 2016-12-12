@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:keepScreenOn="true"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_wifisc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="连接状态：" />
+
+
+
+    <TextView
+        android:id="@+id/tv_wificonstatec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_wifisc"
+        android:layout_toRightOf="@+id/tv_wifisc"
+        android:text="  " />
+
+    <TextView
+        android:id="@+id/tv_showipc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_wifisc"
+        android:layout_below="@+id/tv_wifisc"
+        android:layout_marginTop="16dp"
+        android:text="IP地址：" />
+
+    <TextView
+        android:id="@+id/tv_ipc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_showipc"
+        android:layout_alignBottom="@+id/tv_showipc"
+        android:layout_toRightOf="@+id/tv_showipc"
+        android:text=" " />
+
+    <Button
+        android:id="@+id/bt_wifi_con_statec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_ipc"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="86dp"
+        android:layout_marginRight="86dp"
+        android:text="WIFI连接状态" />
+
+    <TextView
+        android:id="@+id/tv_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_servertext"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_toRightOf="@+id/tv_servertext"
+        android:text="未连接" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_servertext"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignLeft="@+id/tv_showipc"
+        android:layout_alignStart="@+id/tv_showipc"
+        android:id="@+id/lv_playerc" />
+
+    <TextView
+        android:id="@+id/tv_servertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="服务器:"
+        android:layout_below="@+id/bt_wifi_con_statec"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

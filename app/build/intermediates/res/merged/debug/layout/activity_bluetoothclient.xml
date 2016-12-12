@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:keepScreenOn="true"
+    android:layout_height="match_parent" >
+
+    <ListView
+        android:id="@+id/lv_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bt_search"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="40dp" >
+    </ListView>
+
+    <Button
+        android:id="@+id/bt_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="90dp"
+        android:text="查找设备" />
+
+    <Button
+        android:id="@+id/bt_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bt_search"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/bt_bind"
+        android:text="已连接设备" />
+
+    <Button
+        android:id="@+id/bt_bind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bt_search"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/bt_search"
+        android:text="已配对设备" />
+
+
+    <TextView
+        android:id="@+id/tv_shownameclient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>
