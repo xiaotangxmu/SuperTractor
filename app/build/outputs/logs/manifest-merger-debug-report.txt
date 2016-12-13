@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:2:1-105:12
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:2:1-114:12
 	package
 		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:3:5-35
 		INJECTED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml
@@ -45,8 +45,21 @@ uses-permission#android.permission.WAKE_LOCK
 ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:12:5-68
 	android:name
 		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:12:22-65
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:13:5-75
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:13:22-72
+uses-permission#android.permission.READ_LOGS
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:14:5-68
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:14:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:16:22-78
 application
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:14:5-103:19
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:18:5-112:19
+MERGED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:9:5-29:19
 MERGED from [com.android.support:appcompat-v7:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\AndroidManifest.xml:7:5-20
 MERGED from [com.android.support:support-vector-drawable:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\AndroidManifest.xml:7:5-20
@@ -54,134 +67,143 @@ MERGED from [com.google.android.gms:play-services-appindexing:8.1.0] D:\AndroidS
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\AndroidManifest.xml:22:5-20
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:17:9-41
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:21:9-41
 	android:supportsRtl
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:18:9-35
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:23:9-35
 	android:allowBackup
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:19:9-35
 	android:icon
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:16:9-38
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:20:9-38
 	android:theme
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:19:9-47
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:24:9-47
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:22:9-54
 activity#com.xmu.supertractor.activity.MainActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:20:9-28:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:25:9-33:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:22:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:27:13-50
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:21:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:26:13-50
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:23:13-27:29
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:28:13-32:29
 action#android.intent.action.MAIN
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:24:17-69
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:29:17-69
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:24:25-66
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:29:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:26:17-77
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:31:17-77
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:26:27-74
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:31:27-74
 activity#com.xmu.supertractor.activity.BluetoothServerActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:29:9-36:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:34:9-41:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:32:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:37:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:31:13-33
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:36:13-33
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:30:13-81
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:35:13-81
 intent-filter#android.intent.category.DEFAULT
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:33:13-35:29
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:38:13-40:29
 category#android.intent.category.DEFAULT
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:34:17-76
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:39:17-76
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:34:27-73
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:39:27-73
 activity#com.xmu.supertractor.activity.BluetoothClientActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:37:9-44:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:42:9-49:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:40:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:45:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:39:13-36
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:44:13-36
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:38:13-81
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:43:13-81
 activity#com.xmu.supertractor.activity.GameActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:45:9-52:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:50:9-57:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:48:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:53:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:47:13-33
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:52:13-33
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:46:13-70
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:51:13-70
 activity#com.xmu.supertractor.activity.RoomActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:53:9-60:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:58:9-65:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:56:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:61:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:55:13-33
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:60:13-33
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:54:13-70
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:59:13-70
 activity#com.xmu.supertractor.activity.WifiServerActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:61:9-68:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:66:9-73:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:64:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:69:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:63:13-39
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:68:13-39
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:62:13-76
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:67:13-76
 activity#com.xmu.supertractor.activity.WifiClientActivity
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:70:9-77:20
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:75:9-82:20
 	android:screenOrientation
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:73:13-50
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:78:13-50
 	android:label
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:72:13-39
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:77:13-39
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:71:13-76
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:76:13-76
+activity#com.tencent.bugly.beta.ui.BetaActivity
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:84:9-86:64
+	android:theme
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:86:13-61
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:85:13-66
 service#com.xmu.supertractor.connection.wifi.service.WifiClientConnectService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:79:9-81:46
-	android:enabled
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:81:13-35
-	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:80:13-97
-service#com.xmu.supertractor.connection.wifi.service.WifiServerConnectService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:82:9-84:46
-	android:enabled
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:84:13-35
-	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:83:13-97
-service#com.xmu.supertractor.connection.bluetooth.service.BlueServerConnectService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:85:9-87:46
-	android:enabled
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:87:13-35
-	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:86:13-82
-service#com.xmu.supertractor.connection.bluetooth.service.BlueClientConnectService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:88:9-90:46
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:88:9-90:38
 	android:enabled
 		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:90:13-35
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:89:13-82
-service#com.xmu.supertractor.desk.DeskService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:91:9-93:46
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:89:13-97
+service#com.xmu.supertractor.connection.wifi.service.WifiServerConnectService
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:91:9-93:38
 	android:enabled
 		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:93:13-35
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:92:13-65
-service#com.xmu.supertractor.player.PlayerService
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:94:9-96:46
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:92:13-97
+service#com.xmu.supertractor.connection.bluetooth.service.BlueServerConnectService
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:94:9-96:38
 	android:enabled
 		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:96:13-35
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:95:13-69
-uses-library#android.test.runner
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:98:9-60
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:95:13-82
+service#com.xmu.supertractor.connection.bluetooth.service.BlueClientConnectService
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:97:9-99:38
+	android:enabled
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:99:13-35
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:98:23-57
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:98:13-82
+service#com.xmu.supertractor.desk.DeskService
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:100:9-102:38
+	android:enabled
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:102:13-35
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:101:13-65
+service#com.xmu.supertractor.player.PlayerService
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:103:9-105:38
+	android:enabled
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:105:13-35
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:104:13-69
+uses-library#android.test.runner
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:107:9-60
+	android:name
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:107:23-57
 meta-data#com.google.android.gms.version
-ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:100:9-102:69
+ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:109:9-111:69
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:21:9-23:69
 	android:value
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:102:13-66
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:111:13-66
 	android:name
-		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:101:13-58
+		ADDED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml:110:13-58
 uses-sdk
 INJECTED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support:appcompat-v7:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:animated-vector-drawable:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\AndroidManifest.xml:5:5-44
 MERGED from [com.android.support:support-vector-drawable:23.4.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\AndroidManifest.xml:5:5-43
@@ -196,3 +218,37 @@ MERGED from [com.android.support:support-v4:23.4.0] D:\AndroidStudioProjects\Sup
 	android:minSdkVersion
 		INJECTED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml
 		INJECTED from D:\AndroidStudioProjects\SuperTractor\app\src\main\AndroidManifest.xml
+meta-data#com.tencent.rdm.uuid
+ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:10:9-12:68
+	android:value
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:12:13-65
+	android:name
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:11:13-48
+service#com.tencent.bugly.beta.tinker.TinkerResultService
+ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:15:9-17:40
+	android:exported
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:17:13-37
+	android:name
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:16:13-77
+service#com.tencent.tinker.lib.service.TinkerPatchService
+ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:18:9-21:40
+	android:process
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:21:13-37
+	android:exported
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:20:13-37
+	android:name
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:19:13-77
+service#com.tencent.tinker.lib.service.TinkerPatchService$InnerService
+ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:22:9-25:40
+	android:process
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:25:13-37
+	android:exported
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:24:13-37
+	android:name
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:23:13-90
+service#com.tencent.tinker.lib.service.DefaultTinkerResultService
+ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:26:9-28:40
+	android:exported
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [com.tencent.bugly:crashreport_upgrade:1.2.0] D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\AndroidManifest.xml:27:13-85

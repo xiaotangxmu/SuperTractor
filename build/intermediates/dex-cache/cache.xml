@@ -66,6 +66,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="67bd386cc253b958997533d67fa72a7519ba02ac">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_3fe003382565551cd5e3c9ad569bc1433e16135c.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -120,12 +129,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="fef44d95443e535662a5c1477d457a4fe1bf1a76">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\instant-run_0321b625140e1ce2becff203a9fa5a2cb00b54d8.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
         <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.4.0_9e1bc4fb14fc1738a731c043d69d4ed90f061b61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_5f71f47e55b956fbdc51179fffa17f53a84d6f94.jar" />
     </item>
     <item
         is-multidex="false"
@@ -138,12 +165,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jar="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_5f71f47e55b956fbdc51179fffa17f53a84d6f94.jar" />
+        sha1="1899de0ab37714e358370512cda75b3c36a536f0">
+        <dex dex="D:\AndroidStudioProjects\SuperTractor\app\build\intermediates\pre-dexed\debug\com.tencent.bugly-crashreport_upgrade-1.2.0_2bde362df45487d4c65bbd597ea09c0719d8ab5d.jar" />
     </item>
 
 </items>

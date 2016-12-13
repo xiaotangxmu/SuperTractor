@@ -4,6 +4,10 @@
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p161.png"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p144.png",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p144.png"
     },
@@ -12,20 +16,16 @@
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p23.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
-        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p71.png",
-        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p71.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p71.png",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p71.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\redheart.png",
@@ -40,12 +40,12 @@
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_full_material.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p41.png",
-        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p41.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p41.png",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p41.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\poke_back.png",
@@ -300,12 +300,12 @@
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p82.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p133.png",
-        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p133.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p133.png",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p133.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
@@ -352,12 +352,12 @@
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p72.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p44.png",
-        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p44.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p53.png",
         "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p53.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\p44.png",
+        "source": "D:\\AndroidStudioProjects\\SuperTractor\\app\\src\\main\\res\\drawable\\p44.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\SuperTractor\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fangpian.png",

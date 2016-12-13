@@ -2,6 +2,7 @@ package com.xmu.supertractor.activity;
 
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +15,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.xmu.supertractor.R;
+import com.xmu.supertractor.Tools.Tools;
 import com.xmu.supertractor.connection.bluetooth.admin.BluetoothAdmin;
 import com.xmu.supertractor.connection.wifi.admin.WifiAdmin;
 import com.xmu.supertractor.parameter.Status;
@@ -28,12 +31,15 @@ public class MainActivity extends Activity {
     public  Context mContext = null;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mActivity = this;
         mContext = this;
+        TextView tv_version= (TextView) findViewById(R.id.tv_version);
+        tv_version.setText(""+Tools.getVersionName(mContext));
         MyOnClickListener l = new MyOnClickListener();
         Button bt_toclient = (Button) findViewById(R.id.bt_toclient);
         Button bt_toserver = (Button) findViewById(R.id.bt_toserver);

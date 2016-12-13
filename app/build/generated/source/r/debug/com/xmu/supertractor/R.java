@@ -1850,7 +1850,6 @@ containing a value of this type.
         public static final int text=0x7f0d00a5;
         public static final int text2=0x7f0d00a3;
         public static final int textSpacerNoButtons=0x7f0d0036;
-        public static final int textView=0x7f0d0079;
         public static final int textView2=0x7f0d0077;
         public static final int time=0x7f0d00a1;
         public static final int title=0x7f0d002c;
@@ -1885,6 +1884,7 @@ containing a value of this type.
         public static final int tv_shownameclient=0x7f0d0056;
         public static final int tv_showpartner=0x7f0d008f;
         public static final int tv_time=0x7f0d0068;
+        public static final int tv_version=0x7f0d0079;
         public static final int tv_wificonstate=0x7f0d0086;
         public static final int tv_wificonstatec=0x7f0d007e;
         public static final int tv_wifis=0x7f0d0085;
@@ -2017,7 +2017,6 @@ containing a value of this type.
         public static final int help_dialog_text=0x7f070036;
         public static final int name_hint=0x7f070037;
         public static final int status_bar_notification_info_overflow=0x7f070031;
-        public static final int version=0x7f070038;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0a0086;
