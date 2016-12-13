@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/bt_toclient"
             android:enabled="false"
-            android:text="蓝牙" />
+            android:text="蓝牙(待开放)" />
 
     </RadioGroup>
 
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="请输入昵称"
+        android:hint="@string/name_hint"
         android:inputType="textPersonName"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
@@ -106,5 +106,15 @@
 
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:text="@string/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/bt_help"
+        android:layout_alignEnd="@+id/bt_help"
+        android:layout_marginTop="14dp"
+        android:id="@+id/textView" />
 
 </RelativeLayout>

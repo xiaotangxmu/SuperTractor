@@ -282,7 +282,9 @@
 
 
 </string>
+    <string name="name_hint">请输入昵称</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="version">版本:内测1.0</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>

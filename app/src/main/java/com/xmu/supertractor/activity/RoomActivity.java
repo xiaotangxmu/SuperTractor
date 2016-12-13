@@ -31,10 +31,8 @@ public class RoomActivity extends Activity {
 	private Button bt_roomprepare = null;
 	public Context rContext=null;
 	public Activity rActivity=null;
-	private ListView lv_roomshow=null;
 	private Me me=null;
 	private ArrayAdapter<String> arrayadapter = null;
-	private MyOnClickListener l=null;
 	private List<String> data = new ArrayList<>();
 	private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
@@ -75,11 +73,11 @@ public class RoomActivity extends Activity {
 		setContentView(R.layout.activity_room);
 		rContext=this;
 		rActivity=this;
-		l=new MyOnClickListener();
+		MyOnClickListener l = new MyOnClickListener();
 		Log.d("my", "RoomActivity onCreate");
 		bt_roomprepare = (Button) findViewById(R.id.bt_roomprepare);
-		bt_roomprepare.setOnClickListener(l);	
-		lv_roomshow=(ListView) findViewById(R.id.lv_roomshow);
+		bt_roomprepare.setOnClickListener(l);
+		ListView lv_roomshow = (ListView) findViewById(R.id.lv_roomshow);
 		arrayadapter = new ArrayAdapter<>(rContext,
 				android.R.layout.simple_expandable_list_item_1,data);
 		lv_roomshow.setAdapter(arrayadapter);
@@ -100,7 +98,7 @@ public class RoomActivity extends Activity {
 
 		public void onClick(View v) {
 			if (v.getId() == R.id.bt_roomprepare) {
-				if (false == flag_prepare) {
+				if (!flag_prepare) {
 					prepare();
 				} else {
 					cancel_prepare();
