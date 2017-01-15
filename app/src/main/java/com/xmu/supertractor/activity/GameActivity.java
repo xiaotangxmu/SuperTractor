@@ -2,8 +2,10 @@ package com.xmu.supertractor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
@@ -18,7 +20,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xmu.supertractor.R;
 
 import com.xmu.supertractor.connection.transmitunit.TransmitUnit;
@@ -68,6 +70,8 @@ public class GameActivity extends Activity {
     private AbsoluteLayout al_north;
     private AbsoluteLayout al_west;
     private AbsoluteLayout al_east;
+    private AbsoluteLayout al_over_round;
+    private AbsoluteLayout al_over_call;
     private RelativeLayout rl_cent;
     private MyView mv_main_card;
     private AbsoluteLayout al_center_card;
@@ -85,6 +89,8 @@ public class GameActivity extends Activity {
     private MyView mv_west;
     private AbsoluteLayout al_push;
     private MyView bt_push;
+    private MyView bt_over_call;
+    private MyView bt_over_round;
     private TextView tv_score;
     private TextView tv_level_my;
     private TextView tv_level_opponent;
@@ -98,6 +104,7 @@ public class GameActivity extends Activity {
     private TimeThread timeshowthread;
     private TextView tv_time;
     private TimeHandler timeHandler;
+    private MyUiListener uiListener = null;
 
     private ServiceConnection connectiondesk = new ServiceConnection() {
 
@@ -117,7 +124,7 @@ public class GameActivity extends Activity {
 
         public void onServiceConnected(ComponentName name, IBinder service) {
             playerservice = ((PlayerService.LocalBinder) service).getService();
-            playerservice.setUIListener(new MyUiListener());
+            playerservice.setUIListener(uiListener);
             playerservice.init();
         }
 
@@ -130,7 +137,7 @@ public class GameActivity extends Activity {
         deskservice.init();
     }
 
-    class MyUiListener implements UIListener{
+    class MyUiListener implements UIListener {
 
         @Override
         public void flush_biggest_out_player() {
@@ -151,11 +158,13 @@ public class GameActivity extends Activity {
                 case 4:
                     tv_eastname.setTextColor(Color.RED);
                     break;
+                default:
+
             }
         }
 
         @Override
-        public void show_push_off(){
+        public void show_push_off() {
             al_push.setVisibility(View.GONE);
             al_push.setEnabled(false);
         }
@@ -166,6 +175,14 @@ public class GameActivity extends Activity {
             al_push.setVisibility(View.GONE);
             al_ready_push.setVisibility(View.VISIBLE);
             al_ready_push.setEnabled(true);
+        }
+
+        @Override
+        public void ready_next_round() {
+            al_push.setEnabled(false);
+            al_push.setVisibility(View.GONE);
+            al_over_round.setVisibility(View.VISIBLE);
+            al_over_round.setEnabled(true);
         }
 
         @Override
@@ -185,7 +202,7 @@ public class GameActivity extends Activity {
         @Override
         public void flush_score() {
             tv_score.setText("得分:" + Status.player_score);
-            Log.d("push", "flush score:" + Status.player_score);
+            log(tag, "flush score:" + Status.player_score);
         }
 
         @Override
@@ -202,11 +219,27 @@ public class GameActivity extends Activity {
             al_push.setEnabled(true);
         }
 
+        void bury_on() {
+            al_push.setVisibility(View.VISIBLE);
+            bt_push.change_img(getbitmap(R.drawable.bury));
+            al_push.setEnabled(true);
+        }
+
         @Override
         public void push_off() {
             al_push.setVisibility(View.VISIBLE);
             bt_push.change_img(getbitmap(R.drawable.push_gray));
             al_push.setEnabled(true);
+        }
+
+        void call_over_on() {
+            al_over_call.setVisibility(View.VISIBLE);
+            al_over_call.setEnabled(true);
+        }
+
+        void call_over_off() {
+            al_over_call.setVisibility(View.GONE);
+            al_over_call.setEnabled(false);
         }
 
         @Override
@@ -231,6 +264,10 @@ public class GameActivity extends Activity {
 
         @Override
         public void start_round() {
+            al_east.removeAllViews();
+            al_north.removeAllViews();
+            al_south.removeAllViews();
+            al_west.removeAllViews();
             al_push.setVisibility(View.GONE);
             al_north.setVisibility(View.VISIBLE);
             al_south.setVisibility(View.VISIBLE);
@@ -265,15 +302,17 @@ public class GameActivity extends Activity {
 
         @Override
         public void others_gai_di_pai() {
+            al_call.setVisibility(View.GONE);
             al_center_card.setVisibility(View.VISIBLE);
             add_card_center(Status.eight_pokes, false);
         }
 
         @Override
         public void gai_di_pai() {
+            al_call.setVisibility(View.GONE);
             al_push.setVisibility(View.VISIBLE);
             al_center_card.setVisibility(View.VISIBLE);
-            push_on();
+            bury_on();
             add_card_center(Status.eight_pokes, true);
             add_card_mine(me.hand_card.pokes, true);
         }
@@ -288,7 +327,7 @@ public class GameActivity extends Activity {
                 tv_level_opponent.setText(Status.level_a + "");
             }
             if (0 != Status.lord_number) {
-                if (Status.lord_number == me.seq || Status.lord_number == PokeGameTools.next_player(me.seq, 2)) {
+                if (Status.main_level_a_or_b == Logic.player_level_a_or_b(me.seq)) {
                     tv_level_my.setTextColor(Color.RED);
                     tv_level_opponent.setTextColor(Color.WHITE);
                 } else {
@@ -316,7 +355,7 @@ public class GameActivity extends Activity {
         }
 
         @Override
-        public void call_info(int a,int b,int c) {
+        public void call_info(int a, int b, int c) {
             ArrayList<Integer> temp = new ArrayList<>();
             if (1 == a)
                 temp.add(b);
@@ -345,11 +384,10 @@ public class GameActivity extends Activity {
         }
 
         @Override
-        public void flush_my_card(){
+        public void flush_my_card() {
             add_card_mine(me.hand_card.pokes, true);
         }
     }
-
 
 
     @Override
@@ -390,6 +428,7 @@ public class GameActivity extends Activity {
 
     private void view_init() {
         l = new CardOnClick();
+        uiListener = new MyUiListener();
         DisplayMetrics dm = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         ViewControl.compute(dm.heightPixels, dm.widthPixels);
@@ -419,6 +458,8 @@ public class GameActivity extends Activity {
         init_rl_call();
         init_push();
         init_ready_push();
+        init_over_call();
+        init_over_round();
     }
 
     private void init_pic_map() {
@@ -662,6 +703,39 @@ public class GameActivity extends Activity {
         al_push.setVisibility(View.GONE);
     }
 
+    private void init_over_call() {
+        al_over_call = new AbsoluteLayout(this);
+        RelativeLayout.LayoutParams lp_over_call = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp_over_call.addRule(RelativeLayout.ABOVE, ViewControl.id_al_call);
+        lp_over_call.bottomMargin = (int) (ViewControl.hei * 0.05);
+        lp_over_call.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp_over_call.rightMargin = (int) (ViewControl.wid * 0.2);
+        al_over_call.setLayoutParams(lp_over_call);
+        Bitmap b = getbitmap(R.drawable.ready_push);
+        bt_over_call = new MyView(this, 1, b, 0, 0, ViewControl.call_button_hei * 2.273, ViewControl.call_button_hei);
+        bt_over_call.setOnClickListener(new PushClick());
+        al_over_call.addView(bt_over_call);
+        rl_cent.addView(al_over_call);
+        al_over_call.setVisibility(View.GONE);
+    }
+
+    private void init_over_round() {
+        al_over_round = new AbsoluteLayout(this);
+        RelativeLayout.LayoutParams lp_over_round = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp_over_round.addRule(RelativeLayout.ABOVE, ViewControl.id_al_call);
+        lp_over_round.bottomMargin = (int) (ViewControl.hei * 0.05);
+        lp_over_round.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp_over_round.rightMargin = (int) (ViewControl.wid * 0.2);
+        al_over_round.setLayoutParams(lp_over_round);
+        Bitmap b = getbitmap(R.drawable.ready_push);
+        bt_over_round = new MyView(this, 1, b, 0, 0, ViewControl.call_button_hei * 2.273, ViewControl.call_button_hei);
+        bt_over_round.setOnClickListener(new PushClick());
+        al_over_round.addView(bt_over_round);
+        rl_cent.addView(al_over_round);
+        al_over_round.setVisibility(View.GONE);
+    }
+
+
     private void init_ready_push() {
         al_ready_push = new AbsoluteLayout(this);
         RelativeLayout.LayoutParams lp_ready_push = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -680,6 +754,7 @@ public class GameActivity extends Activity {
         al_call = new AbsoluteLayout(this);
         RelativeLayout.LayoutParams lp_call = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp_call.addRule(RelativeLayout.ALIGN_BOTTOM, ViewControl.id_mv_south);
+        al_call.setId(ViewControl.id_al_call);
         lp_call.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         lp_call.rightMargin = (int) (ViewControl.wid * 0.02);
         al_call.setLayoutParams(lp_call);
@@ -718,20 +793,20 @@ public class GameActivity extends Activity {
 
     }
 
-    private void show_distribute(ArrayList<Integer> cardlist) {
+    private synchronized void show_distribute(ArrayList<Integer> cardlist) {
         temp_show.clear();
         for (int i = 0; i <= count; ++i)
             temp_show.add(cardlist.get(i));
         Collections.sort(temp_show, PokeGameTools.cardcom);
-        al_mine.removeAllViews();
+        Collections.sort(temp_show, PokeGameTools.card_show_com);
         add_card_mine(temp_show, false);
     }
 
     private void show_single(ArrayList<Integer> al) {
-        add_card_south(al);
+        add_card_center(al, false);
     }
 
-    private void update_call_button(ArrayList<Integer> temp_show) {
+    private synchronized void update_call_button(ArrayList<Integer> temp_show) {
         for (int i = 0; i < 5; ++i)
             change_call_button(i, 0);
         if (0 == Status.call_player) {
@@ -745,8 +820,9 @@ public class GameActivity extends Activity {
 
         if (me.seq != Status.call_player && 0 == Status.insurance_player && temp_show.size() > 1) {
             for (int i = 1; i < temp_show.size(); ++i) {
-                if (PokeGameTools.mainorno(temp_show.get(i))) {
+                if (temp_show.get(i) / 10 == Status.main_level || temp_show.get(i) >= 151) {
                     if ((temp_show.get(i - 1).intValue() == temp_show.get(i).intValue())) {
+                        log(tag, "" + temp_show.get(i - 1) + "," + temp_show.get(i));
                         if (PokeGameTools.comparecolor(temp_show.get(i), Status.recall_card)) {
                             if (temp_show.get(i) >= 151) {
                                 daxiaowang = temp_show.get(i);
@@ -775,17 +851,20 @@ public class GameActivity extends Activity {
         lp_al_main_card.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         lp_al_main_card.addRule(RelativeLayout.RIGHT_OF, R.id.tv_mian_card);
         lp_al_main_card.leftMargin = (int) (ViewControl.wid * 0.01);
-        if (Status.main_color == 0)
-            mv_main_card = new MyView(this, pic_map.get(161), 0, 0, ViewControl.hei * 0.1 / ViewControl.card_hei_div_wid, ViewControl.hei * 0.1);
-        else
-            mv_main_card = new MyView(this, pic_map.get(Status.main_level * 10 + Status.main_color), 0, 0, ViewControl.hei * 0.1 / ViewControl.card_hei_div_wid, ViewControl.hei * 0.1);
-        mv_main_card.setId(ViewControl.id_mv_main_card);
-        mv_main_card.setLayoutParams(lp_al_main_card);
-        rl_cent.addView(mv_main_card);
+        if (-1 != Status.main_color) {
+            if (0 == Status.main_color)
+                mv_main_card = new MyView(this, pic_map.get(161), 0, 0, ViewControl.hei * 0.1 / ViewControl.card_hei_div_wid, ViewControl.hei * 0.1);
+            else
+                mv_main_card = new MyView(this, pic_map.get(Status.main_level * 10 + Status.main_color), 0, 0, ViewControl.hei * 0.1 / ViewControl.card_hei_div_wid, ViewControl.hei * 0.1);
+            mv_main_card.setId(ViewControl.id_mv_main_card);
+            mv_main_card.setLayoutParams(lp_al_main_card);
+            rl_cent.addView(mv_main_card);
+        }
     }
 
     private void add_card_mine(ArrayList<Integer> cardlist, boolean b) {
         al_mine.removeAllViews();
+        PokeGameTools.maopao_card_show_sort(cardlist);
         for (int i = 0; i < cardlist.size(); ++i) {
             MyView v = new MyView(this, cardlist.get(i), pic_map.get(cardlist.get(i)), (ViewControl.wid_my_card * ViewControl.card_margin * i), ViewControl.hei_my_card_move, ViewControl.wid_my_card, ViewControl.hei_my_card);
             if (b)
@@ -874,9 +953,9 @@ public class GameActivity extends Activity {
                     e.printStackTrace();
                 }
             } while (count <= distribute_card_list.size());
-            Log.d("call", "----out-----");
+            log(tag, "----------call out-----------");
             try {
-                Thread.sleep(2000);
+                Thread.sleep(500);
                 Message msg = timeHandler.obtainMessage();
                 msg.what = 3;  //停止叫主
                 msg.sendToTarget();
@@ -887,13 +966,13 @@ public class GameActivity extends Activity {
 
     }
 
-    static class TimeHandler extends Handler{
-        WeakReference<GameActivity> gameActivityWeakReference=null;
-        GameActivity gameActivity=null;
+    static class TimeHandler extends Handler {
+        WeakReference<GameActivity> gameActivityWeakReference = null;
+        GameActivity gameActivity = null;
 
-        TimeHandler(GameActivity g){
-            gameActivityWeakReference=new WeakReference<>(g);
-            gameActivity=gameActivityWeakReference.get();
+        TimeHandler(GameActivity g) {
+            gameActivityWeakReference = new WeakReference<>(g);
+            gameActivity = gameActivityWeakReference.get();
         }
 
         public void handleMessage(Message msg) {
@@ -905,7 +984,7 @@ public class GameActivity extends Activity {
                     gameActivity.tv_time.setText(sysTimeStr); //更新时间
                     break;
                 case 2:
-                    gameActivity.al_south.setVisibility(View.VISIBLE);
+                    gameActivity.al_center_card.setVisibility(View.VISIBLE);
                     ArrayList<Integer> a = new ArrayList<>();
                     if (gameActivity.count < gameActivity.distribute_card_list.size()) {
                         a.clear();
@@ -914,18 +993,14 @@ public class GameActivity extends Activity {
                         gameActivity.show_single(a);
                         gameActivity.show_distribute(gameActivity.distribute_card_list);
                     } else {
-                        gameActivity.al_south.setVisibility(View.INVISIBLE);
+                        gameActivity.al_center_card.setVisibility(View.INVISIBLE);
                     }
                     gameActivity.count++;
                     gameActivity.update_call_button(gameActivity.temp_show);
                     break;
                 case 3:
-                    gameActivity.al_call.setVisibility(View.GONE);
-                    gameActivity.al_east.removeAllViews();
-                    gameActivity.al_north.removeAllViews();
-                    gameActivity.al_south.removeAllViews();
-                    gameActivity.al_west.removeAllViews();
-                    gameActivity.playerservice.send_message_to_server(new TransmitUnit(Status.CALL_OVER, gameActivity.me.seq, 0, null));
+                    Status.status = Status.STATUS_CALLING_OVER;
+                    gameActivity.uiListener.call_over_on();
                     break;
                 default:
                     break;
@@ -935,6 +1010,31 @@ public class GameActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setTitle("确认退出进行中的游戏吗？")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 点击“确认”后的操作
+                        Intent intent = new Intent();
+                        intent.setClass(gContext, MainActivity.class);
+                        startActivity(intent);
+
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 点击“返回”后的操作,这里不设置没有任何操作
+
+                    }
+                }).show();
+
+    }
 
     @Override
     protected void onStart() {
@@ -947,6 +1047,7 @@ public class GameActivity extends Activity {
     protected void onResume() {
         // TODO Auto-generated method stub
         log(tag, "GameActivity onResume");
+        CrashReport.setUserSceneTag(gContext, 32875);
         super.onResume();
     }
 
@@ -965,6 +1066,12 @@ public class GameActivity extends Activity {
     }
 
     @Override
+    protected void onRestart() {
+        log(tag, "GameActivity onRestart");
+        super.onRestart();
+    }
+
+    @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
         log(tag, "GameActivity onDestroy");
@@ -979,7 +1086,7 @@ public class GameActivity extends Activity {
         pic_map = null;
         com.xmu.supertractor.Tools.Tools.rceycleBitmapDrawable(bd);
         timeHandler.removeCallbacksAndMessages(null);
-        timeHandler=null;
+        timeHandler = null;
         System.gc();
         Intent stopIntent = new Intent(this, PlayerService.class);
         stopService(stopIntent);
@@ -1007,8 +1114,10 @@ public class GameActivity extends Activity {
                         playerservice.send_message_to_server(new TransmitUnit(Status.CALL, me.seq, 0, new Unit_Call_Info(daxiaowang, 2, me.seq)));
                     } else
                         playerservice.send_message_to_server(new TransmitUnit(Status.CALL, me.seq, 0, new Unit_Call_Info(Status.main_level * 10 + t.card, 2, me.seq)));
-                } else if (Status.call_player == me.seq && Status.re_call_player == 0)
+                } else if (Status.call_player == me.seq && Status.re_call_player == 0) {
+                    al_call.setVisibility(View.GONE);
                     playerservice.send_message_to_server(new TransmitUnit(Status.CALL, me.seq, 0, new Unit_Call_Info(Status.main_level * 10 + t.card, 3, me.seq)));
+                }
             }
         }
     }
@@ -1037,9 +1146,9 @@ public class GameActivity extends Activity {
     class PushClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            if (Status.CALLING == Status.status) {
+            if (Status.DELIVER_EIGHT_CARDS == Status.status) {
                 if (8 == me.oc.len()) {
-                    playerservice.send_message_to_server(new TransmitUnit(Status.PUSH_EIGHT_CARDS, me.seq, 0, me.oc.pokes));
+                    playerservice.send_message_to_server(new TransmitUnit(Status.PUSH_EIGHT_CARDS, me.seq, 0, new Unit_Array_Info(me.oc.pokes)));
                     for (int i = 0; i < 8; ++i)
                         me.hand_card.pokes.add(Status.eight_pokes.get(i));
                     for (Integer ig : me.oc.pokes)
@@ -1049,7 +1158,7 @@ public class GameActivity extends Activity {
                 } else {
                     PokeGameTools.MyToast(gContext, "底牌数量不符");
                 }
-            } else if (Status.GAMING == Status.status) {
+            } else if (Status.STATUS_GAMING == Status.status) {
                 if (Status.check_or_not) {
                     playerservice.send_message_to_server(new TransmitUnit(Status.PUSH, me.seq, 0, new Unit_Array_Info(me.oc.pokes)));
                     al_push.setVisibility(View.INVISIBLE);
@@ -1063,6 +1172,15 @@ public class GameActivity extends Activity {
                 } else {
                     PokeGameTools.MyToast(gContext, Status.error_str);
                 }
+            } else if (Status.STATUS_CALLING_OVER == Status.status) {
+                Status.status = Status.DELIVER_EIGHT_CARDS;
+                playerservice.send_message_to_server(new TransmitUnit(Status.CALL_OVER, me.seq, 0, null));
+                al_call.setVisibility(View.GONE);
+                uiListener.call_over_off();
+            } else if (Status.STATUS_ROUND_OVER == Status.status) {
+                playerservice.send_message_to_server(new TransmitUnit(Status.READY_NEXT_ROUND,me.seq,0,null));
+                al_over_round.setEnabled(false);
+                al_over_round.setVisibility(View.GONE);
             }
         }
     }
@@ -1119,11 +1237,10 @@ public class GameActivity extends Activity {
                 ap.y = y;
                 flag = false;
             }
-            if (Status.status == Status.GAMING && Status.out_player == me.seq) {
+            if (Status.status == Status.STATUS_GAMING && Status.out_player == me.seq) {
                 playerservice.check_out();
-            } else if (Status.status == Status.CALLING)
+            } else if (Status.status == Status.STATUS_CALLING)
                 PokeGameTools.cardsort(Me.get_me().oc.pokes);
-            Log.d(Status.GAMING == Status.status ? "game" : "call", PokeGameTools.array_to_String(Me.get_me().oc.pokes));
             this.setLayoutParams(ap);
             this.invalidate();
         }

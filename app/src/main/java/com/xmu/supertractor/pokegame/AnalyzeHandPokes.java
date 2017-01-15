@@ -1,5 +1,6 @@
 package com.xmu.supertractor.pokegame;
 
+
 import com.xmu.supertractor.card.Hand_Card;
 import com.xmu.supertractor.card.Pair;
 import com.xmu.supertractor.card.Single;
@@ -8,9 +9,13 @@ import com.xmu.supertractor.card.Tractor;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.xmu.supertractor.Tools.PrintLog.log;
+
 
 public class AnalyzeHandPokes {
+
     public static void analyze_hand_pokes(Hand_Card hc) {
+        PokeGameTools.cardsort(hc.pokes);
         analyze_single(hc);
         analyze_pair(hc);
         analyze_tractor(hc);
@@ -24,19 +29,45 @@ public class AnalyzeHandPokes {
             hc.single_map.get(s.color).add(s);
         }
 
-        // System.out.println("-------------Single---------------");
-        // for (Iterator<Map.Entry<Integer, ArrayList<Single>>> it =
-        // hc.single_map.entrySet().iterator(); it.hasNext();) {
-        // Map.Entry<Integer, ArrayList<Single>> entry = (Map.Entry<Integer,
-        // ArrayList<Single>>) it.next();
-        // ArrayList<Single> as = (ArrayList<Single>) entry.getValue();
-        // for (Single s : as) {
-        // System.out.println(s.pokes.get(0) + ":value:" + s.value + ",color:" +
-        // s.color);
-        // }
-        // System.out.println("color:" + entry.getKey() + " num:" + as.size());
-        // System.out.println();
-        // }
+    }
+
+    static void analyze_throw_independence(Hand_Card hc, int color) {
+        analyze_hand_pokes(hc);
+        int min_single_index;
+        boolean flag = false;
+        Single minsingle = null;
+        ArrayList<Single> single_color = hc.single_map.get(color);
+        if (!single_color.isEmpty()) {
+            for (min_single_index = 0; min_single_index < single_color.size() - 1; min_single_index = min_single_index + 2) {
+                boolean res = single_color.get(min_single_index).pokes.get(0).intValue() == single_color.get(min_single_index + 1).pokes.get(0).intValue();
+                if (!res) {
+                    flag = true;
+                    minsingle = new Single(single_color.get(min_single_index).pokes.get(0));
+                    break;
+                }
+            }
+            single_color.clear();
+            if (flag) {
+                single_color.add(minsingle);
+            }
+        }
+        if (!hc.independent_tractor_map.get(color).isEmpty()) {
+            for (Tractor t : hc.independent_tractor_map.get(color)) {
+                for (int i = 0; i < t.len; ++i) {
+                    hc.pair_map.get(color).remove(new Pair(t.pokes.get(2 * i)));
+                }
+            }
+        }
+        String tag = "AnalyzeHandPokes";
+        log(tag, "------min single-------");
+        for (Single s : hc.single_map.get(color))
+            log(tag, s.pokes.get(0) + " ");
+        log(tag, "------independence pair------");
+        for (Pair p : hc.pair_map.get(color))
+            log(tag, p.pokes.get(0) + " ");
+        log(tag, "------independence tractor------");
+        for (Tractor t : hc.independent_tractor_map.get(color))
+            log(tag, PokeGameTools.array_to_String(t.pokes) + " ");
     }
 
     private static void analyze_pair(Hand_Card hc) {
@@ -48,18 +79,6 @@ public class AnalyzeHandPokes {
                 hc.pair_map.get(p.color).add(p);
             }
         }
-
-//		System.out.println("-------------Pair---------------");
-//
-//		for (Iterator<Map.Entry<Integer, ArrayList<Pair>>> it = hc.pair_map.entrySet().iterator(); it.hasNext();) {
-//			Map.Entry<Integer, ArrayList<Pair>> entry = (Map.Entry<Integer, ArrayList<Pair>>) it.next();
-//			ArrayList<Pair> as = (ArrayList<Pair>) entry.getValue();
-//			for (Pair p : as) {
-//				System.out.println(p.pokes.get(0) + "," + p.pokes.get(1) + ":val:" + p.value + ",color:" + p.color);
-//			}
-//			System.out.println("color:" + entry.getKey() + "  num:" + as.size());
-//			System.out.println();
-//		}
     }
 
     private static void analyze_tractor(Hand_Card hc) {
@@ -69,7 +88,7 @@ public class AnalyzeHandPokes {
         }
 
         for (int x = 0; x < hc.pair_map.size(); x++) {
-            int color= hc.pair_map.keyAt(x);
+            int color = hc.pair_map.keyAt(x);
             ArrayList<Pair> as = hc.pair_map.get(color);
             int i, j;
             ArrayList<Pair> temp = new ArrayList<>();

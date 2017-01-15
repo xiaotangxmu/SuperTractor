@@ -16,9 +16,6 @@ public class Logic {
         log(tag, "set partner:" + Status.server_partner + "," + Desk.dk_getInstance().getMember(Status.server_partner).name);
     }
 
-    public static boolean main_level_a_or_b(){
-        return Logic.player_level_a_or_b(Status.lord_number);
-    }
 
     public static boolean player_level_a_or_b(int i) {
         return 1 == Status.level_list.get(i);

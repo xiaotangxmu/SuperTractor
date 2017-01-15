@@ -7,8 +7,8 @@ import com.xmu.supertractor.card.Out_Card;
 public class Member {
     public String name;
     public int seq;
-    Hand_Card hc = null;
-    public Out_Card oc=null;
+    public Hand_Card hc = null;
+    public Out_Card oc = null;
 
     public BluetoothComThread bluetooththread;
 
@@ -20,7 +20,6 @@ public class Member {
         this.seq = seq;
         this.bluetooththread = bluetooththread;
     }
-
 
 
     Member(int seq, String name) {

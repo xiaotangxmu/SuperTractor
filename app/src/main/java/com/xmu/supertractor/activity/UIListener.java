@@ -9,6 +9,8 @@ public interface UIListener {
 
     void ready_next_turn();
 
+    void ready_next_round();
+
     void clear_cards();
 
     void flush_score();

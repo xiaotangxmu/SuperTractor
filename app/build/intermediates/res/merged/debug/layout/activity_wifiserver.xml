@@ -76,18 +76,6 @@
         android:layout_marginTop="15dp"
         android:text="玩家列表：" />
 
-    <Button
-        android:id="@+id/bt_wifi_con_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tv_ip"
-        android:layout_alignBottom="@+id/tv_ip"
-        android:layout_marginLeft="62dp"
-        android:layout_marginStart="62dp"
-        android:layout_toEndOf="@+id/bt_start_wifi"
-        android:layout_toRightOf="@+id/bt_start_wifi"
-        android:text="WIFI连接状态" />
-
     <RadioGroup
         android:id="@+id/rd_new_or_not"
         android:layout_width="wrap_content"

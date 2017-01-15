@@ -34,13 +34,9 @@ public class Tools {
         return getPackageInfo(context).versionName;
     }
 
-    //版本号
-    public static int getVersionCode(Context context) {
-        return getPackageInfo(context).versionCode;
-    }
 
     private static PackageInfo getPackageInfo(Context context) {
-        PackageInfo pi = null;
+        PackageInfo pi;
 
         try {
             PackageManager pm = context.getPackageManager();
@@ -52,6 +48,6 @@ public class Tools {
             e.printStackTrace();
         }
 
-        return pi;
+        return null;
     }
 }

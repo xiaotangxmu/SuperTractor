@@ -26,8 +26,6 @@ import java.util.List;
 import static com.xmu.supertractor.Tools.PrintLog.log;
 
 
-
-
 public class WifiClientConnectService extends Service {
     private Context mcontext;
     private String tag = "WifiClientConnectService";
@@ -182,12 +180,15 @@ public class WifiClientConnectService extends Service {
     public void onDestroy() {
         Log.d("xiaotang", "WifiClientConnectService---" + "onDestory");
         try {
-            ct.stopthread();
+            if (ct != null)
+                ct.stopthread();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        clienthandler.removeCallbacksAndMessages(null);
-        clienthandler=null;
+        if (clienthandler != null) {
+            clienthandler.removeCallbacksAndMessages(null);
+            clienthandler = null;
+        }
         super.onDestroy();
     }
 

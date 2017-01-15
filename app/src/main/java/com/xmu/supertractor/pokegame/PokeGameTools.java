@@ -14,8 +14,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.xmu.supertractor.Tools.PrintLog.log;
+
 
 public class PokeGameTools {
+    private static String tag = "PokeGameTools";
     public static String newLine = System.getProperty("line.separator");
     static Comparator<Integer> down_com = new Comparator<Integer>() {
         public int compare(Integer t1, Integer t2) {
@@ -41,6 +44,61 @@ public class PokeGameTools {
         }
     };
 
+    public static Comparator<Integer> card_show_com = new Comparator<Integer>() {
+        @Override
+        public int compare(Integer i1, Integer i2) {
+            if (2 == Status.main_color) {
+                if ((getcolor(i1) == 3) && (getcolor(i2) == 4)) {
+                    return 1;
+                } else
+                    return 0;
+            } else if (3 == Status.main_color) {
+                if ((getcolor(i1) == 1) && (getcolor(i2) == 2)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else
+                return 0;
+        }
+    };
+
+    public static void card_show_sort(ArrayList<Integer> al) {
+        int l = al.size();
+
+    }
+
+    private static void quick_sort(ArrayList<Integer> al, int a, int b) {
+        Integer start = al.get(a);
+
+    }
+
+    public static void maopao_card_show_sort(ArrayList<Integer> al) {
+        if (Status.main_color != 2) {
+            if (Status.main_color != 3)
+                return;
+        }
+        int l = al.size();
+        for (int i = 1; i <= l - 1; ++i) {
+            for (int j = 0; j < l - i; ++j) {
+                if (2 == Status.main_color) {
+                    if ((getcolor(al.get(j)) == 3) && (getcolor(al.get(j + 1)) == 4)) {
+                        Integer temp = al.get(j);
+                        al.set(j, al.get(j + 1));
+                        al.set(j + 1, temp);
+                    }
+                } else if (3 == Status.main_color) {
+                    if ((getcolor(al.get(j)) == 1) && (getcolor(al.get(j + 1)) == 2)) {
+                        Integer temp = al.get(j);
+                        al.set(j, al.get(j + 1));
+                        al.set(j + 1, temp);
+                    }
+                }
+            }
+        }
+    }
+
+
     public static Comparator<Integer> cardcom = new Comparator<Integer>() {
         @Override
         public int compare(Integer o1, Integer o2) {
@@ -56,10 +114,8 @@ public class PokeGameTools {
             }
         }
     };
-//    private static Map<Integer, Integer> comparemap = new HashMap<>();
-    private static SparseIntArray comparemap=new SparseIntArray();
-    private static SparseIntArray colormap=new SparseIntArray();
-//    private static Map<Integer, Integer> colormap = new HashMap<>();
+    private static SparseIntArray comparemap = new SparseIntArray();
+    private static SparseIntArray colormap = new SparseIntArray();
 
     private PokeGameTools() {
     }
@@ -101,14 +157,19 @@ public class PokeGameTools {
     public static int getcolor(Integer i) {
         if (mainorno(i))
             return 5;
-        return i % 10;
+        else
+            return i % 10;
+    }
+
+    public static void print_value_sort() {
+        for (int i = 0; i < comparemap.size(); ++i) {
+            log(tag, comparemap.keyAt(i) + "---" + comparemap.valueAt(i));
+        }
     }
 
     public static int getvalue(Integer i) {
         return comparemap.get(i);
     }
-
-
 
 
     public static void computeval() {
@@ -173,54 +234,10 @@ public class PokeGameTools {
     }
 
 
-//    public static void print() {
-//        int t;
-//        for (int i = 0; i < 52; ++i) {
-//            t = 20 + i / 4 * 10 + i % 4 + 1;
-//            if (t / 10 != Status.main_level && t % 10 != Status.main_color) {
-//                System.out.print(t + "," + comparemap.get(t) + "," + (mainorno(t) ? "y" : "n"));
-//                System.out.println();
-//            }
-//        }
-//        for (int i = 0; i < 52; ++i) {
-//            t = 20 + i / 4 * 10 + i % 4 + 1;
-//            if (t / 10 != Status.main_level && t % 10 == Status.main_color) {
-//                System.out.print(t + "," + comparemap.get(t) + "," + (mainorno(t) ? "y" : "n"));
-//                System.out.println();
-//            }
-//        }
-//        for (int i = 0; i < 52; ++i) {
-//            t = 20 + i / 4 * 10 + i % 4 + 1;
-//            if (t / 10 == Status.main_level && t % 10 != Status.main_color) {
-//                System.out.print(t + "," + comparemap.get(t) + "," + (mainorno(t) ? "y" : "n"));
-//                System.out.println();
-//            }
-//        }
-//        for (int i = 0; i < 52; ++i) {
-//            t = 20 + i / 4 * 10 + i % 4 + 1;
-//            if (t / 10 == Status.main_level && t % 10 == Status.main_color) {
-//                System.out.print(t + "," + comparemap.get(t) + "," + (mainorno(t) ? "y" : "n"));
-//                System.out.println();
-//            }
-//        }
-//        System.out.print(151 + "," + comparemap.get(151) + "," + (mainorno(151) ? "y" : "n"));
-//        System.out.println();
-//        System.out.print(161 + "," + comparemap.get(161) + "," + (mainorno(161) ? "y" : "n"));
-//        System.out.println();
-//
-//    }
-
-//    private static String pokes_to_String(Base_Card bc) {
-//        StringBuilder sb = new StringBuilder();
-//        for (Integer i : bc.pokes)
-//            sb.append(i + " ");
-//        return sb.toString();
-//    }
-
     public static String array_to_String(ArrayList<Integer> al) {
         StringBuilder sb = new StringBuilder();
         for (Integer i : al)
-            sb.append(i).append("");
+            sb.append(i).append("-");
         return sb.toString();
     }
 
@@ -246,44 +263,6 @@ public class PokeGameTools {
 
     }
 
-//    public static String print_out_card(Out_Card oc) {
-//        StringBuilder sb=new StringBuilder();
-//        switch (oc.type) {
-//            case TypeDefine.single:
-//                Single s=(Single)oc;
-//                sb.append("single:"+newLine);
-//                sb.append("pokes:"+ PokeGameTools.pokes_to_String(s));
-//                sb.append(newLine);
-//                sb.append("value:"+s.value);
-//                break;
-//            case TypeDefine.pair:
-//                Pair p=(Pair)oc;
-//                sb.append("pair" +newLine);
-//                sb.append("pokes:"+ PokeGameTools.pokes_to_String(p));
-//                sb.append(newLine);
-//                sb.append("value:"+p.value);
-//                break;
-//            case TypeDefine.tractor:
-//                Tractor t=(Tractor)oc;
-//                sb.append("tractor:"+newLine);
-//                sb.append("pokes:"+ PokeGameTools.pokes_to_String(t));
-//                sb.append(newLine);
-//                sb.append("value:"+t.value);
-//                sb.append(newLine);
-//                sb.append("len:"+t.len);
-//                break;
-//            case TypeDefine.shuai:
-//                Throw tw=(Throw)oc;
-//                sb.append("throw:"+newLine);
-//                sb.append(tw.to_string());
-//                break;
-//            case TypeDefine.tie:
-//                sb.append("tie:"+newLine);
-//                sb.append("pokes:"+ PokeGameTools.pokes_to_String(oc));
-//                break;
-//        }
-//        return sb.toString();
-//    }
 
     public static int next_player(int p, int next) {
         int pos = PokeGameTools.get_player_pos(p);

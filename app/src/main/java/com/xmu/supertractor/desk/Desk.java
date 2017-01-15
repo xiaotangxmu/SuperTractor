@@ -4,6 +4,7 @@ package com.xmu.supertractor.desk;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.xmu.supertractor.card.Out_Card;
 import com.xmu.supertractor.connection.bluetooth.BluetoothComThread;
 import com.xmu.supertractor.parameter.Setting;
 import com.xmu.supertractor.parameter.Status;
@@ -17,14 +18,25 @@ import static com.xmu.supertractor.Tools.PrintLog.log;
 
 public class Desk {
     private Random rand;
+    int turns_count;
     private ArrayList<Integer> deskPokes;// 108张牌
     private ArrayList<Integer> eightPokes;// 8张底牌
-    SparseArray<Member> deskplayer_map;
+    public SparseArray<Member> deskplayer_map;
     public ArrayList<Integer> pos_list;
     int out_player;
     private String tag = "Desk";
     private static Desk desk = null;
     public ArrayList<Integer> list_a_or_b;
+    public boolean mian_level_a_or_b;
+    int desknumbner;
+    int out_order_count;
+    int turn_score;
+    int prepared_num = 1;
+    boolean push_flag;
+    Out_Card pushoc;
+    int pushplayer;
+    ArrayList<Integer> out_card_miniimun;
+    ArrayList<Integer> send_back_card;
 
     private Desk() {
         deskplayer_map = new SparseArray<>();
@@ -38,15 +50,16 @@ public class Desk {
         list_a_or_b.add(3, 2);
         list_a_or_b.add(4, 2);
         rand = new Random();
+        desknumbner = rand.nextInt(10000);
     }
 
     private static void status_init() {
-        Status.main_color = 0;
+        Status.main_color = -1;
         Status.player_score = 0;
-
+        Status.biggest_out_player = 0;
         if (Setting.user_level) {
             Status.first_round = false;
-            Log.d("push", "Status:" + Status.level_a + ":" + Status.level_b + ",user_level:true");
+            log("desk", "round init: level a:b-" + Status.level_a + ":" + Status.level_b + ",user_level:true" + ",main level:" + Status.main_level + ",lord:" + desk.getMember(Status.lord_number).name);
         } else {
             if (Status.first_round) {
                 Status.main_level = 2;
@@ -54,7 +67,7 @@ public class Desk {
                 Status.level_b = 2;
                 Status.lord_number = 0;
             }
-            Log.d("push", "Status:" + Status.level_a + ":" + Status.level_b + ",user_level:false");
+            log("desk", "round init: level a:b-" + Status.level_a + ":" + Status.level_b + ",user_level:false" + ",main level:" + Status.main_level);
         }
     }
 
@@ -117,6 +130,10 @@ public class Desk {
         }
     }
 
+    public void setMian_level_a_or_b(boolean b) {
+        mian_level_a_or_b = b;
+    }
+
     private void initpokes(List<Integer> list) {
         list.clear();
         for (int j = 0; j < 2; ++j) {
@@ -136,11 +153,13 @@ public class Desk {
         }
     }
 
-    private void takeeight(List<Integer> list, List<Integer> list2) {
+    private void takeeight(ArrayList<Integer> list, ArrayList<Integer> list2) {
         list2.clear();
         for (int i = 0; i < 8; ++i) {
             list2.add(list.get(i + 100));
         }
+        PokeGameTools.cardsort(list2);
+        PokeGameTools.card_show_sort(list2);
     }
 
     private void distribute(List<Integer> list, SparseArray<Member> map) {
@@ -149,7 +168,6 @@ public class Desk {
             for (int j = (i - 1) * 25; j < i * 25; ++j) {
                 map.get(i).hc.pokes.add(list.get(j));
             }
-
         }
     }
 

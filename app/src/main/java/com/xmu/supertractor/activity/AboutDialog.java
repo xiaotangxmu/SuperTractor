@@ -12,9 +12,7 @@ public class AboutDialog extends AlertDialog {
 
         super(context);
 
-        final View view = getLayoutInflater().inflate(R.layout.about,
-
-                null);
+        final View view = getLayoutInflater().inflate(R.layout.about, null);
 
         setButton(context.getText(R.string.close), (OnClickListener) null);
 

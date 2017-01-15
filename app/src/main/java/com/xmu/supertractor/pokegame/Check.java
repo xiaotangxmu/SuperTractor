@@ -6,13 +6,20 @@ import java.util.Collections;
 
 import com.xmu.supertractor.card.Hand_Card;
 import com.xmu.supertractor.card.Out_Card;
+import com.xmu.supertractor.card.Pair;
+import com.xmu.supertractor.card.Single;
 import com.xmu.supertractor.card.Throw;
 import com.xmu.supertractor.card.Tractor;
 import com.xmu.supertractor.card.TypeDefine;
+import com.xmu.supertractor.desk.Desk;
 import com.xmu.supertractor.parameter.Status;
 import com.xmu.supertractor.player.Me;
 
+import static com.xmu.supertractor.Tools.PrintLog.log;
+
 public class Check {
+
+    public static String tag="Check";
     public static String check_out_cards(Out_Card first, Out_Card oc, Hand_Card hc) {
         if (Me.get_me().seq != Status.out_player)
             return "还没轮到您";
@@ -60,7 +67,6 @@ public class Check {
                     return "仍有可出的对牌";
             }
         }
-
         int hc_pair_num = hc.pair_map.get(oc_color).size();
         if (first_type == TypeDefine.tractor) {
             Tractor t = (Tractor) first;
@@ -180,6 +186,97 @@ public class Check {
             }
         } else
             return false;
+    }
+
+    public static boolean checkthrow(Out_Card out_card, int recsour, ArrayList<Integer> al) {
+        Desk desk= Desk.dk_getInstance();
+        boolean valid_shuai = true;
+        Hand_Card First_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 1)).hc;
+        Hand_Card Second_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 2)).hc;
+        Hand_Card Third_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 3)).hc;
+        int color = out_card.color;
+        ArrayList<Hand_Card> hc_list = new ArrayList<>();
+        hc_list.add(First_player_card);
+        hc_list.add(Second_player_card);
+        hc_list.add(Third_player_card);
+        al.clear();
+        Hand_Card throw_hand = new Hand_Card();
+        throw_hand.pokes.addAll(out_card.pokes);
+        AnalyzeHandPokes.analyze_throw_independence(throw_hand, color);
+        ArrayList<Single> min_single_arr = throw_hand.single_map.get(color);
+        if (!min_single_arr.isEmpty()) {
+            int i = 1;
+            for (Hand_Card hd : hc_list) {
+                ArrayList<Single> als = hd.single_map.get(color);
+                if (als.isEmpty()) {
+                    ++i;
+                    continue;
+                }
+                Single min_single = min_single_arr.get(0);
+                for (Single s : als)
+                    if (min_single.value < s.value) {
+                        valid_shuai = false;
+                        log(tag, "Throw fail!!!!!    player:" + Status.out_player + " Single:" + min_single.pokes.get(0) + " < " + desk.getMember(PokeGameTools.next_player(recsour, i)).name + " Single:" + s.pokes);
+                        al.addAll(min_single.pokes);
+                        break;
+                    }
+                if (!valid_shuai)
+                    break;
+                i++;
+            }
+        }
+        if (valid_shuai) {
+            ArrayList<Pair> min_pair_arr = throw_hand.pair_map.get(color);
+            if (!min_pair_arr.isEmpty()) {
+                Pair min_pair = min_pair_arr.get(0);
+                int i = 1;
+                for (Hand_Card hd : hc_list) {
+                    ArrayList<Pair> alp = hd.pair_map.get(color);
+                    if (alp.isEmpty()) {
+                        ++i;
+                        continue;
+                    }
+                    for (Pair p : alp)
+                        if (min_pair.value < p.value) {
+                            log(tag, "Throw fail!!!!!    player:" + Status.out_player + " Pair:" + min_pair.pokes.get(0) + " < " + desk.getMember(PokeGameTools.next_player(recsour, i)).name + " Pair:" + p.pokes);
+                            valid_shuai = false;
+                            al.addAll(min_pair.pokes);
+                            break;
+                        }
+                    if (!valid_shuai)
+                        break;
+                    ++i;
+                }
+            }
+        }
+        if (valid_shuai) {
+            ArrayList<Tractor> independent_throw_tractor_arr = throw_hand.independent_tractor_map.get(color);
+            if (!independent_throw_tractor_arr.isEmpty()) {
+                int i = 1;
+                Collections.sort(independent_throw_tractor_arr, PokeGameTools.tractor_up_com);
+                for (Hand_Card hd : hc_list) {
+                    ArrayList<Tractor> throw_tractor_arr = hd.tractor_map.get(color);
+                    if (throw_tractor_arr.isEmpty()) {
+                        ++i;
+                        continue;
+                    }
+                    for (Tractor throw_t : independent_throw_tractor_arr) {
+                        for (Tractor player_t : throw_tractor_arr) {
+                            if (throw_t.len == player_t.len && throw_t.value < player_t.value) {
+                                log(tag, "Throw fail!!!!!    player:" + Status.out_player + " Tractor:" + throw_t.pokes.get(0) + " < " + desk.getMember(PokeGameTools.next_player(recsour, i)).name + " Tractor:" + player_t.pokes);
+                                valid_shuai = false;
+                                al.addAll(throw_t.pokes);
+                                break;
+                            }
+                        }
+                    }
+                    if (!valid_shuai)
+                        break;
+                    ++i;
+                }
+            }
+        }
+        return valid_shuai;
     }
 
     private static void compute_needed_tractor(ArrayList<Integer> sour, ArrayList<Integer> sublist,

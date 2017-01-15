@@ -1,19 +1,22 @@
 package com.xmu.supertractor.parameter;
 
+import android.util.SparseArray;
+
 import com.xmu.supertractor.card.Out_Card;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Status {
-    public static int connected_num =0;
-    public static boolean wifi_or_bluetooth=true;
+    public static int turns_count;
+    public static int connected_num = 0;
+    public static boolean wifi_or_bluetooth = true;
     public static String error_str;
+    public static int desknumber;
     public static int main_level;                 //主级牌
     public static int main_color;                //主花色
     public static int level_a;
     public static int level_b;
+    public static boolean main_level_a_or_b;
     public static int lord_number;                //谁是主（1，2，3，4？） 第一局中在收到Call_Lord_First改动，在第一局之后，每局游戏胜利应该会对他进行改动
     public static boolean first_round;          //是否为第一局
     public static boolean first_out_or_not;
@@ -36,9 +39,12 @@ public class Status {
     public static ArrayList<Integer> pos_list = new ArrayList<>(); //用户位置
     public static ArrayList<Integer> push_card = new ArrayList<>();
     public static ArrayList<Integer> level_list = new ArrayList<>();
-    private static Map<Integer,String> type;
-    public static final int CALLING = 1;
-    public static final int GAMING = 2;
+    private static SparseArray<String> type;
+    public static final int STATUS_CALLING = 1;
+    public static final int STATUS_GAMING = 2;
+    public static final int STATUS_CALLING_OVER = 3;
+    public static final int STATUS_ROUND_OVER = 4;
+
 
     public static final int START_GAME_ACTIVITY = 10;
     public static final int GAME_ACTIVITY_PREPARED = 11;
@@ -61,38 +67,37 @@ public class Status {
     public static final int TURN_OVER = 35;
     public static final int NEW_TURN = 36;
     public static final int ROUND_OVER = 40;
+    public static final int READY_NEXT_ROUND = 41;
 
     public static final int TIME = 80;
 
-    public static final String CALL_INFO = "b";
 
-
-
-    static{
-        type=new HashMap<>();
-        type.put(START_GAME_ACTIVITY,"START_GAME_ACTIVITY");
-        type.put(GAME_ACTIVITY_PREPARED,"GAME_ACTIVITY_PREPARED");
-        type.put(ROUND_INIT,"ROUND_INIT");
-        type.put(ACK_GAME_INIT,"ACK_GAME_INIT");
-        type.put(START_CAll,"START_CAll");
-        type.put(CALL,"CALL");
-        type.put(BROADCAST_CALL,"BROADCAST_CALL");
-        type.put(CALL_OVER,"CALL_OVER");
-        type.put(DELIVER_EIGHT_CARDS,"DELIVER_EIGHT_CARDS");
-        type.put(PUSH_EIGHT_CARDS,"PUSH_EIGHT_CARDS");
-        type.put(ACK_STARG_GAME,"ACK_STARG_GAME");
-        type.put(WHO_TO_PUSH,"WHO_TO_PUSH");
-        type.put(PUSH,"PUSH");
-        type.put(PUSH_BROADCAST,"PUSH_BROADCAST");
-        type.put(ACK_PUSH_BROADCAST,"ACK_PUSH_BROADCAST");
-        type.put(THROW_ERROR,"THROW_ERROR");
-        type.put(TURN_OVER,"TURN_OVER");
-        type.put(NEW_TURN,"NEW_TURN");
-        type.put(ROUND_OVER,"ROUND_OVER");
-        type.put(TIME,"TIME");
+    static {
+        type = new SparseArray<>();
+        type.put(START_GAME_ACTIVITY, "START_GAME_ACTIVITY");
+        type.put(GAME_ACTIVITY_PREPARED, "GAME_ACTIVITY_PREPARED");
+        type.put(ROUND_INIT, "ROUND_INIT");
+        type.put(ACK_GAME_INIT, "ACK_GAME_INIT");
+        type.put(START_CAll, "START_CAll");
+        type.put(CALL, "CALL");
+        type.put(BROADCAST_CALL, "BROADCAST_CALL");
+        type.put(CALL_OVER, "CALL_OVER");
+        type.put(DELIVER_EIGHT_CARDS, "DELIVER_EIGHT_CARDS");
+        type.put(PUSH_EIGHT_CARDS, "PUSH_EIGHT_CARDS");
+        type.put(ACK_STARG_GAME, "ACK_STARG_GAME");
+        type.put(STARG_GAME, "STARG_GAME");
+        type.put(WHO_TO_PUSH, "WHO_TO_PUSH");
+        type.put(PUSH, "PUSH");
+        type.put(PUSH_BROADCAST, "PUSH_BROADCAST");
+        type.put(ACK_PUSH_BROADCAST, "ACK_PUSH_BROADCAST");
+        type.put(THROW_ERROR, "THROW_ERROR");
+        type.put(TURN_OVER, "TURN_OVER");
+        type.put(NEW_TURN, "NEW_TURN");
+        type.put(ROUND_OVER, "ROUND_OVER");
+        type.put(TIME, "TIME");
     }
 
-    public static String type_to_s(int i){
+    public static String type_to_s(int i) {
         return type.get(i);
     }
 }

@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xmu.supertractor.R;
 import com.xmu.supertractor.Tools.Tools;
 import com.xmu.supertractor.connection.bluetooth.admin.BluetoothAdmin;
@@ -25,10 +25,15 @@ import com.xmu.supertractor.parameter.Status;
 import com.xmu.supertractor.player.Me;
 import com.xmu.supertractor.pokegame.PokeGameTools;
 
+import java.util.ArrayList;
+
+import static com.xmu.supertractor.Tools.PrintLog.log;
+
 public class MainActivity extends Activity {
     private EditText ed_name = null;
     public  Activity mActivity = null;
     public  Context mContext = null;
+    private String tag="MainActivity";
 
 
     @SuppressLint("SetTextI18n")
@@ -61,6 +66,10 @@ public class MainActivity extends Activity {
             PokeGameTools.MyToast(mContext, "游戏昵称不能为空！");
             flag = false;
         }
+        if (name.length()>15) {
+            PokeGameTools.MyToast(mContext, "游戏昵称长度超过15个字符");
+            flag = false;
+        }
         return flag;
     }
 
@@ -68,6 +77,7 @@ public class MainActivity extends Activity {
         @SuppressWarnings("deprecation")
         public void onClick(View v) {
             String name = ed_name.getText().toString();
+            CrashReport.setUserId(name);
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.bt_toserver:
@@ -97,8 +107,10 @@ public class MainActivity extends Activity {
                     }
                     break;
                 case R.id.bt_exit:
-                    Log.d("my", "Exit");
+                    log(tag, "Exit");
                     finish();
+//                    ArrayList aa=null;
+//                    aa.add(0,1);
                     break;
                 case R.id.bt_help:
                     AboutDialog a=new AboutDialog(mContext);
@@ -155,37 +167,45 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
-        Log.d("my", "MainActivity onStart");
+        log(tag,"onStart");
         super.onStart();
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
-        Log.d("my", "MainActivity onResume");
+        log(tag,"onResume");
+        CrashReport.setUserSceneTag(mContext,32871);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
-        Log.d("my", "MainActivity onPause");
+        log(tag,"onPausee");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
         // TODO Auto-generated method stub
-        Log.d("my", "MainActivity onStop");
+        log(tag,"onStop");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
-        Log.d("my", "MainActivity onDestory");
+        log(tag,"onDestroy");
         setContentView(R.layout.acticity_null);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent); //这一句必须的，否则Intent无法获得最新的数据
     }
 
 }

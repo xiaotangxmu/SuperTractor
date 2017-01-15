@@ -7,13 +7,14 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xmu.supertractor.Tools.Tools;
 import com.xmu.supertractor.card.Hand_Card;
 import com.xmu.supertractor.card.Out_Card;
 import com.xmu.supertractor.card.Pair;
 import com.xmu.supertractor.card.Single;
+import com.xmu.supertractor.card.Tractor;
 import com.xmu.supertractor.card.TypeDefine;
 import com.xmu.supertractor.connection.bluetooth.admin.BluetoothAdmin;
 import com.xmu.supertractor.connection.transmitunit.TransmitUnit;
@@ -37,27 +38,18 @@ import com.xmu.supertractor.pokegame.PokeGameTools;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import static com.xmu.supertractor.Tools.PrintLog.log;
 
-
 public class DeskService extends Service {
-
+    private String tag = "DeskService";
     public Context dContext = null;
     private LocalBinder mLocBin = new LocalBinder();
     public Handler playerHandler = null;
-    public  Handler deskHandler = null;
-    private int prepared_num = 1;
+    public Handler deskHandler = null;
     private Desk desk = null;
-    private int turn_count;
-    private int turn_score;
-    private boolean push_flag;
-    private Out_Card pushoc;
-    private String tag = "DeskService";
-    private int pushplayer;
-    private ArrayList<Integer> out_card_miniimun;
-    private ArrayList<Integer> send_back_card;
 
 
     public void send_message_to_client(TransmitUnit tu) {
@@ -134,31 +126,43 @@ public class DeskService extends Service {
                         case BluetoothAdmin.MESSAGE_READ_OBJECT:
                             switch (rectype) {
                                 case Status.GAME_ACTIVITY_PREPARED:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32879);
                                     deskService.game_activity_prepared();
                                     break;
                                 case Status.ACK_GAME_INIT:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32879);
                                     deskService.ack_game_init();
                                     break;
                                 case Status.CALL:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32881);
                                     deskService.call(recdata);
                                     break;
                                 case Status.NEW_TURN:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32882);
                                     deskService.start_turn();
                                     break;
                                 case Status.CALL_OVER:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32883);
                                     deskService.call_over();
                                     break;
                                 case Status.PUSH_EIGHT_CARDS:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32884);
                                     deskService.push_eight_cards(recdata);
                                     break;
                                 case Status.ACK_STARG_GAME:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32880);
                                     deskService.ack_start_game();
                                     break;
                                 case Status.PUSH:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32886);
                                     deskService.push(recdata);
                                     break;
                                 case Status.ACK_PUSH_BROADCAST:
+                                    CrashReport.setUserSceneTag(deskService.dContext, 32887);
                                     deskService.ack_push_broadcast();
+                                    break;
+                                case Status.READY_NEXT_ROUND:
+                                    deskService.ready_next_round(recdata);
                                 default:
                                     break;
                             }
@@ -168,8 +172,7 @@ public class DeskService extends Service {
                     super.handleMessage(msg);
                     break;
                 case Status.TIME:
-                    if (Status.level_a < 13 && Status.level_b < 13)
-                        deskService.game_init();
+                    deskService.game_init();
                     break;
                 default:
                     break;
@@ -180,30 +183,37 @@ public class DeskService extends Service {
 
     }
 
+    private void ready_next_round(TransmitUnit recdata) {
+        if (++desk.prepared_num == 4) {
+            desk.prepared_num = 0;
+            game_init();
+        }
+    }
+
 
     private void push(TransmitUnit recdata) {
-        push_flag = true;
-        pushplayer = recdata.sour;
+        desk.push_flag = true;
+        desk.pushplayer = recdata.sour;
         Unit_Array_Info uai = (Unit_Array_Info) recdata.obj;
         ArrayList<Integer> out_pokes = Tools.cast(uai.arr);
-        log(tag, "push Receive Push from:" + pushplayer + PokeGameTools.newLine + PokeGameTools.array_to_String(out_pokes));
-        if (turn_count == 0) {
+        log(tag, "push Receive Push from:" + desk.pushplayer + PokeGameTools.newLine + PokeGameTools.array_to_String(out_pokes));
+        if (desk.out_order_count == 0) {
             Status.first.pokes.clear();
             Status.first.pokes.addAll(out_pokes);
         }
-        pushoc = new Out_Card();
-        pushoc.pokes.addAll(out_pokes);
+        desk.pushoc = new Out_Card();
+        desk.pushoc.pokes.addAll(out_pokes);
         Unit_Push_Broadcast_Info ub = new Unit_Push_Broadcast_Info(out_pokes, Status.first.pokes);
         send_message_to_client(new TransmitUnit(Status.PUSH_BROADCAST, 0, 0, ub));
-        pushoc = AnalyzeOutCard.analyze_out_card(pushoc);
-        if (pushoc.type == TypeDefine.shuai && (Status.first_out_player == pushplayer)) {
-            out_card_miniimun = new ArrayList<>();
-            if (!checkthrow(pushoc, pushplayer, out_card_miniimun)) {
-                push_flag = false;
-                send_back_card = new ArrayList<>();
-                pushoc.pokes.removeAll(out_card_miniimun);
-                send_back_card.addAll(pushoc.pokes);
-                log(tag, "Throw False!----min:" + PokeGameTools.array_to_String(out_card_miniimun) + "   send_back:" + PokeGameTools.array_to_String(send_back_card));
+        desk.pushoc = AnalyzeOutCard.analyze_out_card(desk.pushoc);
+        if (desk.pushoc.type == TypeDefine.shuai && (Status.first_out_player == desk.pushplayer)) {
+            desk.out_card_miniimun = new ArrayList<>();
+            if (!Check.checkthrow(desk.pushoc, desk.pushplayer, desk.out_card_miniimun)) {
+                desk.push_flag = false;
+                desk.send_back_card = new ArrayList<>();
+                desk.pushoc.pokes.removeAll(desk.out_card_miniimun);
+                desk.send_back_card.addAll(desk.pushoc.pokes);
+                log(tag, "Throw False!----min:" + PokeGameTools.array_to_String(desk.out_card_miniimun) + "   send_back:" + PokeGameTools.array_to_String(desk.send_back_card));
             }
         }
         ack_push_broadcast();
@@ -211,7 +221,9 @@ public class DeskService extends Service {
 
 
     private void push_eight_cards(TransmitUnit recdata) {
-        ArrayList<Integer> al = Tools.cast(recdata.obj);
+        Unit_Array_Info ui = Tools.cast(recdata.obj);
+        ArrayList<Integer> al = Tools.cast(ui.arr);
+        log(tag, "receive eight pokes:" + PokeGameTools.array_to_String(al));
         ArrayList<Integer> lal = desk.getMember(Status.lord_number).hc.pokes;
         lal.addAll(desk.getEightPokes());
         for (Integer ig : al)
@@ -221,11 +233,14 @@ public class DeskService extends Service {
         desk.getEightPokes().clear();
         desk.getEightPokes().addAll(al);
         PokeGameTools.cardsort(desk.getEightPokes());
-        send_message_to_client(new TransmitUnit(Status.STARG_GAME, 0, 0, null));
+        ArrayList<Integer> ai = new ArrayList<>();
+        ai.addAll(al);
+        send_message_to_client(new TransmitUnit(Status.STARG_GAME, 0, 0, new Unit_Array_Info(ai)));
     }
 
     private void call_over() {
-        if (++prepared_num == 4) {
+        if (++desk.prepared_num == 4) {
+            desk.prepared_num = 0;
             ArrayList<Integer> backup = new ArrayList<>();
             backup.addAll(desk.getEightPokes());
             if (!Setting.user_level) {
@@ -236,14 +251,18 @@ public class DeskService extends Service {
                     }
                     int color = desk.getEightPokes().get(2);
                     Status.main_color = color >= 151 ? 0 : color % 10;
+                } else {
+                    if (Status.first_round) {
+                        desk.setMian_level_a_or_b(Logic.player_level_a_or_b(Status.lord_number));
+                    }
                 }
             }
             backup.add(Status.lord_number);
             backup.add(Status.main_color);
+            backup.add(desk.mian_level_a_or_b ? 1 : 2);
             PokeGameTools.computeval();
-            Log.d("my", "send lord:" + Status.lord_number);
+            log(tag, "send lord:" + Status.lord_number);
             send_message_to_client(new TransmitUnit(Status.DELIVER_EIGHT_CARDS, 0, 0, new Unit_Array_Info(backup)));
-            prepared_num = 0;
         }
     }
 
@@ -262,7 +281,7 @@ public class DeskService extends Service {
             Status.insurance_player = caller;
         }
         if (callcard < 151) {
-            Status.main_color = callcard % 10;           //这个改变主花色
+            Status.main_color = callcard % 10;
         } else {
             Status.main_color = 0;     //无主
         }
@@ -277,17 +296,17 @@ public class DeskService extends Service {
     }
 
     private void ack_game_init() {
-        if (++prepared_num == 4) {
+        if (++desk.prepared_num == 4) {
             Status.main_color = 0;
             start_call();
-            prepared_num = 0;
+            desk.prepared_num = 0;
         }
     }
 
 
     private void ack_start_game() {
-        if (++prepared_num == 4) {
-            prepared_num = 0;
+        if (++desk.prepared_num == 4) {
+            desk.prepared_num = 0;
             Status.first_out_player = Status.lord_number;
             Status.player_score = 0;
             start_turn();
@@ -295,53 +314,54 @@ public class DeskService extends Service {
     }
 
     private void game_activity_prepared() {
-        Log.d("call", "prepared_num:" + prepared_num);
-        if (++prepared_num == 4) {
+        log(tag, "prepared_num:" + desk.prepared_num);
+        if (++desk.prepared_num == 4) {
             game_init();
-            prepared_num = 0;
+            desk.prepared_num = 0;
         }
     }
 
     private void ack_push_broadcast() {
-        if (++prepared_num == 5) {
-            prepared_num = 0;
-            if (!push_flag) {
-                Unit_Throw_Error_Info utri = new Unit_Throw_Error_Info(out_card_miniimun, send_back_card, pushplayer);
+        if (++desk.prepared_num == 5) {
+            desk.prepared_num = 0;
+            if (!desk.push_flag) {
+                Unit_Throw_Error_Info utri = new Unit_Throw_Error_Info(desk.out_card_miniimun, desk.send_back_card, desk.pushplayer);
                 send_message_to_client(new TransmitUnit(Status.THROW_ERROR, 0, 0, utri));
-                out_card_miniimun = null;
+                desk.out_card_miniimun = null;
                 return;
             }
-            if (++turn_count == 1) {
-                Status.first = pushoc;
-                Status.biggest_out = pushoc;
-                Status.biggest_out_player = pushplayer;
+            if (++desk.out_order_count == 1) {
+                Status.first = desk.pushoc;
+                Status.biggest_out = desk.pushoc;
+                Status.biggest_out_player = desk.pushplayer;
             } else {
-                pushoc.kill = Check.kill_or_not(Status.first, pushoc, pushplayer);
-                if (Compare.Compare_Card(pushoc, Status.biggest_out)) {
-                    Status.biggest_out = pushoc;
-                    Status.biggest_out_player = pushplayer;
+                desk.pushoc.kill = Check.kill_or_not(Status.first, desk.pushoc, desk.pushplayer);
+                if (Compare.Compare_Card(desk.pushoc, Status.biggest_out)) {
+                    Status.biggest_out = desk.pushoc;
+                    Status.biggest_out_player = desk.pushplayer;
                 }
             }
-            Log.d("push", "Biggest_out:" + Status.biggest_out_player + ".  " + PokeGameTools.array_to_String(Status.biggest_out.pokes));
-            turn_score += acceptCard(pushoc, pushplayer);
-            if (4 == turn_count) {
+            log(tag, "Biggest_out:" + Status.biggest_out_player + ".  " + PokeGameTools.array_to_String(Status.biggest_out.pokes));
+            desk.turn_score += acceptCard(desk.pushoc, desk.pushplayer);
+            if (4 == desk.out_order_count) {
                 int biggest_pos = PokeGameTools.get_player_pos(Status.biggest_out_player);
-                Log.d("push", "biggest_out_player:" + Status.biggest_out_player + "   pos:" + biggest_pos);
+                log(tag, "biggest_out_player:" + Status.biggest_out_player + "   pos:" + biggest_pos);
                 int next_one_pos = PokeGameTools.next_player(Status.lord_number, 1);
                 int next_three_pos = PokeGameTools.next_player(Status.lord_number, 3);
                 if (Status.biggest_out_player == next_one_pos || Status.biggest_out_player == next_three_pos) {
-                    Status.player_score += turn_score;
-                    Log.d("push", "update score:" + Status.player_score);
+                    Status.player_score += desk.turn_score;
+                    log(tag, "update score:" + Status.player_score);
                 }
                 if (!Setting.debug_mode) {
-                    if (desk.getMember(1).hc.pokes.isEmpty())
+                    log(tag, "pokes number:" + desk.getMember(1).hc.pokes.size() + "");
+                    if (desk.getMember(1).hc.pokes.isEmpty() || desk.getMember(2).hc.pokes.isEmpty())
                         round_over();
                     else {
                         Status.first_out_player = Status.biggest_out_player;
                         send_message_to_client(new TransmitUnit(Status.TURN_OVER, 0, 0, Status.biggest_out_player));
                     }
                 } else {
-                    if (desk.getMember(1).hc.pokes.size() <= Setting.debug_number)
+                    if (desk.turns_count >= Setting.debug_turn_number)
                         round_over();
                     else {
                         Status.first_out_player = Status.biggest_out_player;
@@ -349,8 +369,8 @@ public class DeskService extends Service {
                     }
                 }
             } else {
-                desk.out_player = PokeGameTools.next_player(pushplayer, 1);
-                Unit_Who_To_Push_Info ui = new Unit_Who_To_Push_Info(desk.out_player, false);
+                desk.out_player = PokeGameTools.next_player(desk.pushplayer, 1);
+                Unit_Who_To_Push_Info ui = new Unit_Who_To_Push_Info(desk.out_player, false, desk.turns_count);
                 send_message_to_client(new TransmitUnit(Status.WHO_TO_PUSH, 0, 0, ui));
             }
         }
@@ -369,36 +389,68 @@ public class DeskService extends Service {
             }
             Status.player_score += (bottom_score * 2);
         }
-        if (Status.player_score >= 80) {
+        if ((Setting.debug_mode ? Status.player_score >= 5 : Status.player_score >= 80)) {
             Status.lord_number = PokeGameTools.next_player(Status.lord_number, 1);
-            if (Logic.main_level_a_or_b())
+            int add = 0;
+            if (Status.player_score >= 120)
+                add = 1;
+            else if (Status.player_score >= 160)
+                add = 2;
+            else if (Status.player_score >= 200)
+                add = 3;
+            else if (Status.player_score >= 240)
+                add = 4;
+            else if (Status.player_score >= 280)
+                add = 5;
+            else if (Status.player_score >= 320)
+                add = 6;
+            if (desk.mian_level_a_or_b) {
+                Status.level_b += add;
                 Status.main_level = Status.level_b;
-            else
-                Status.main_level = Status.level_a;
-        } else {
-            if (PokeGameTools.get_player_pos(Status.lord_number) == 1 || PokeGameTools.get_player_pos(Status.lord_number) == 3) {
-                Status.level_a++;
-                Status.main_level = Status.level_a;
+                desk.setMian_level_a_or_b(false);
             } else {
-                Status.level_b++;
+                Status.level_a += add;
+                Status.main_level = Status.level_a;
+                desk.setMian_level_a_or_b(true);
+            }
+        } else {
+            int add = 0;
+            if (Status.player_score == 0)
+                add = 3;
+            else if (Status.player_score >= 5 && Status.player_score <= 35)
+                add = 2;
+            else if (Status.player_score >= 40 && Status.player_score <= 75)
+                add = 1;
+            if (PokeGameTools.get_player_pos(Status.lord_number) == 1 || PokeGameTools.get_player_pos(Status.lord_number) == 3) {
+                Status.level_a += add;
+                Status.main_level = Status.level_a;
+                desk.setMian_level_a_or_b(true);
+            } else {
+                Status.level_b += add;
                 Status.main_level = Status.level_b;
+                desk.setMian_level_a_or_b(false);
             }
             Status.lord_number = PokeGameTools.next_player(Status.lord_number, 2);
-
+            if (Status.level_a > 14 || Status.level_b > 14) {
+                Status.first_round = true;
+                Setting.user_level = false;
+            }
         }
         send_message_to_client(new TransmitUnit(Status.ROUND_OVER, 0, 0, new Unit_Round_Over_Info(desk.getEightPokes(), Status.player_score)));
-        new TimeThread().start();
+     //   new TimeThread().start();
     }
 
 
     private void start_turn() {
-        turn_score = 0;
-        turn_count = 0;
+        desk.turns_count++;
+        desk.turn_score = 0;
+        desk.out_order_count = 0;
+        Status.biggest_out_player = 0;
         for (int i = 1; i <= 4; ++i)
             AnalyzeHandPokes.analyze_hand_pokes(desk.getMember(i).hc);
         desk.out_player = Status.first_out_player;
-        Log.d("push", "First_out:" + Status.first_out_player);
-        Unit_Who_To_Push_Info ui = new Unit_Who_To_Push_Info(desk.out_player, true);
+        log(tag, "Turn Number:" + desk.turns_count + ",First_out:" + Status.first_out_player);
+        Unit_Who_To_Push_Info ui = new Unit_Who_To_Push_Info(desk.out_player, true, desk.turns_count);
         TransmitUnit u = new TransmitUnit(Status.WHO_TO_PUSH, 0, 0, ui);
         send_message_to_client(u);
     }
@@ -406,17 +458,18 @@ public class DeskService extends Service {
     public void game_init() {
 
         desk.round_init();
+        desk.turns_count = 0;
 
-        TransmitUnit cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 1, new Unit_Round_Info(desk.deskplayer_map.get(1).hc.pokes));
+        TransmitUnit cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 0, new Unit_Round_Info(desk.deskplayer_map.get(1).hc.pokes, desk.desknumbner, desk.mian_level_a_or_b, 1));
         send_message_to_client(cardInfo);
 
-        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 2, new Unit_Round_Info(desk.deskplayer_map.get(2).hc.pokes));
+        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 0, new Unit_Round_Info(desk.deskplayer_map.get(2).hc.pokes, desk.desknumbner, desk.mian_level_a_or_b, 2));
         send_message_to_client(cardInfo);
 
-        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 3, new Unit_Round_Info(desk.deskplayer_map.get(3).hc.pokes));
+        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 0, new Unit_Round_Info(desk.deskplayer_map.get(3).hc.pokes, desk.desknumbner, desk.mian_level_a_or_b, 3));
         send_message_to_client(cardInfo);
 
-        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 4, new Unit_Round_Info(desk.deskplayer_map.get(4).hc.pokes));
+        cardInfo = new TransmitUnit(Status.ROUND_INIT, 0, 0, new Unit_Round_Info(desk.deskplayer_map.get(4).hc.pokes, desk.desknumbner, desk.mian_level_a_or_b, 4));
         send_message_to_client(cardInfo);
     }
 
@@ -436,60 +489,6 @@ public class DeskService extends Service {
         send_message_to_client(Inform_Lord_Change);
     }
 
-    public boolean checkthrow(Out_Card out_card, int recsour, ArrayList<Integer> al) {
-        boolean valid_shuai = true;
-        Hand_Card First_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 1)).hc;
-        Hand_Card Second_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 2)).hc;
-        Hand_Card Third_player_card = desk.deskplayer_map.get(PokeGameTools.next_player(recsour, 3)).hc;
-        int color = out_card.color;
-        ArrayList<Hand_Card> hc_list = new ArrayList<>();
-        hc_list.add(First_player_card);
-        hc_list.add(Second_player_card);
-        hc_list.add(Third_player_card);
-        al.clear();
-        if (out_card.pokes.get(0).intValue() != out_card.pokes.get(1).intValue()) {
-            Single out_single = new Single(out_card.pokes.get(0));
-            int i = 1;
-            for (Hand_Card hd : hc_list) {
-                if (hd.single_map.get(color).isEmpty()) {
-                    ++i;
-                    continue;
-                }
-                ArrayList<Single> als = hd.single_map.get(color);
-                for (Single s : als)
-                    if (out_single.value < s.value) {
-                        valid_shuai = false;
-                        log(tag, "Throw fail!!!!!    player:" + Status.out_player + " Single:" + out_single.pokes.get(0) + " < " + desk.getMember(PokeGameTools.next_player(recsour, i)).name + " Single:" + s.pokes);
-                        al.addAll(out_single.pokes);
-                        break;
-                    }
-                if (!valid_shuai)
-                    break;
-                i++;
-            }
-        } else {
-            Pair out_pair = new Pair(out_card.pokes.get(0));
-            int i = 1;
-            for (Hand_Card hd : hc_list) {
-                if (hd.pair_map.get(color).isEmpty()) {
-                    ++i;
-                    continue;
-                }
-                ArrayList<Pair> alp = hd.pair_map.get(color);
-                for (Pair p : alp)
-                    if (out_pair.value < p.value) {
-                        log(tag, "Throw fail!!!!!    player:" + Status.out_player + " Pair:" + out_pair.pokes.get(0) + " < " + desk.getMember(PokeGameTools.next_player(recsour, i)).name + " Single:" + p.pokes);
-                        valid_shuai = false;
-                        al.addAll(out_pair.pokes);
-                        break;
-                    }
-                if (!valid_shuai)
-                    break;
-                ++i;
-            }
-        }
-        return valid_shuai;
-    }
 
     public int acceptCard(Out_Card out_card, int recsour) {       //接受某个用户出的牌，同时判断是否成功甩牌,在扣除desk中的牌之后，计算牌的分数
         int score = 0;
@@ -497,7 +496,6 @@ public class DeskService extends Service {
         for (Integer ig : out_card.pokes)
             desk.getMember(recsour).hc.pokes.remove(ig);
         AnalyzeHandPokes.analyze_hand_pokes(desk.getMember(recsour).hc);
-        //找用户发来的牌里的分数，包括5，10，K。
         for (int i = 0; i < out_card.pokes.size(); i++) {
             int card = out_card.pokes.get(i);
             if (card / 10 == 5) {
@@ -507,16 +505,16 @@ public class DeskService extends Service {
                 score = score + 10;
             }
         }
-        Log.d("push", "turnscore:" + score);
+        log(tag, "turnscore:" + score);
         return score;
     }
 
 
     @Override
     public void onCreate() {
-        Log.d("desk", "DeskService onCreate.");
+        log(tag, "onCreate");
         dContext = this;
-        deskHandler=new DeskHandler(tag,DeskService.this);
+        deskHandler = new DeskHandler(tag, DeskService.this);
         desk = Desk.dk_getInstance();
         if (Status.wifi_or_bluetooth) {
             WifiAdmin.CommunThread_map.get(2).setHandler(deskHandler);
@@ -532,9 +530,9 @@ public class DeskService extends Service {
     }
 
     public void onDestroy() {
-        Log.d("desk", "DeskService onDestory.");
+        log(tag, "onDestory.");
         deskHandler.removeCallbacksAndMessages(null);
-        deskHandler=null;
+        deskHandler = null;
         System.gc();
         super.onDestroy();
     }
@@ -548,14 +546,14 @@ public class DeskService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d("desk", "Desk OnBind");
+        log(tag, "onBind");
         return mLocBin;
     }
 
 
     public class LocalBinder extends Binder {
         public DeskService getService() {
-            Log.d("desk", "return DeskService.this;");
+            log(tag, "return DeskService.this;");
             return DeskService.this;
         }
     }

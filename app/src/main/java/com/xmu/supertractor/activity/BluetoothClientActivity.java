@@ -35,16 +35,10 @@ import java.util.List;
 public class BluetoothClientActivity extends Activity {
 
     private List<BluetoothDevice> discoveredDevices = null;
-    @SuppressWarnings("unused")
-    private BlueClientConnectService clientconnectservice = null;
     private Button bt_search = null;
-    private Button bt_connect = null;
-    private Button bt_bind = null;
-    private TextView tv_shownameclient = null;
-    private ListView lv_show = null;
     private ArrayAdapter<String> arrayadapter = null;
-    public static Activity cActivity = null;
-    public static Context cContext = null;
+    public  Activity cActivity = null;
+    public  Context cContext = null;
     private MyOnClickListener l;
     private Me me = Me.get_me();
     private List<String> data = new ArrayList<>();
@@ -55,7 +49,7 @@ public class BluetoothClientActivity extends Activity {
         }
 
         public void onServiceConnected(ComponentName name, IBinder service) {
-            clientconnectservice = ((BlueClientConnectService.LocalBinder) service).getService();
+            BlueClientConnectService clientconnectservice = ((BlueClientConnectService.LocalBinder) service).getService();
         }
 
     };
@@ -132,16 +126,16 @@ public class BluetoothClientActivity extends Activity {
     }
 
     private void init_UI() {
-        lv_show = (ListView) findViewById(R.id.lv_show);
-        arrayadapter = new ArrayAdapter<String>(BluetoothClientActivity.this,
+        ListView lv_show = (ListView) findViewById(R.id.lv_show);
+        arrayadapter = new ArrayAdapter<>(BluetoothClientActivity.this,
                 android.R.layout.simple_expandable_list_item_1, data);
         lv_show.setAdapter(arrayadapter);
         lv_show.setOnItemClickListener(new MyOnItemClickListener());
         discoveredDevices = BluetoothAdmin.discoveredDevices;
         bt_search = (Button) findViewById(R.id.bt_search);
-        bt_connect = (Button) findViewById(R.id.bt_connected);
-        bt_bind = (Button) findViewById(R.id.bt_bind);
-        tv_shownameclient = (TextView) findViewById(R.id.tv_shownameclient);
+        Button bt_connect = (Button) findViewById(R.id.bt_connected);
+        Button bt_bind = (Button) findViewById(R.id.bt_bind);
+        TextView tv_shownameclient = (TextView) findViewById(R.id.tv_shownameclient);
         l = new MyOnClickListener();
         bt_search.setOnClickListener(l);
         bt_connect.setOnClickListener(l);

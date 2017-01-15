@@ -8,11 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xmu.supertractor.Tools.PrintLog;
 import com.xmu.supertractor.R;
 import com.xmu.supertractor.Tools.Tools;
@@ -73,6 +74,7 @@ public class WifiServerActivity extends Activity {
     private TextView tv_levelb_wifi;
     private TextView tv_mainlevel_wifi;
     private TextView tv_printzhuang;
+    private RadioGroup rd;
 
     public void setTv_wificonstate(String s) {
         tv_wificonstate.setText(s);
@@ -97,7 +99,6 @@ public class WifiServerActivity extends Activity {
         Button bt_start_wifi = (Button) findViewById(R.id.bt_start_wifi);
         tv_mainlevel_wifi = (TextView) findViewById(R.id.tv_mainlevel_wifi);
         tv_mainlevel_wifi.setHint("2");
-        Button bt_wifi_con_state = (Button) findViewById(R.id.bt_wifi_con_state);
         tv_ip = (TextView) findViewById(R.id.tv_ip);
         ListView lv_player = (ListView) findViewById(R.id.lv_player);
         l = new ArrayList<>();
@@ -107,22 +108,13 @@ public class WifiServerActivity extends Activity {
         lv_player.setOnItemClickListener(new ListviewOnClickListener());
         lv_player.setSelector(android.R.color.holo_orange_light);
         Onclickst st = new Onclickst();
-        bt_wifi_con_state.setOnClickListener(st);
         bt_start_wifi.setOnClickListener(st);
         tv_zhuangwifi.setOnClickListener(st);
         tv_levela_wifi.setOnClickListener(st);
         tv_levelb_wifi.setOnClickListener(st);
         tv_mainlevel_wifi.setOnClickListener(st);
-        RadioGroup rd = (RadioGroup) findViewById(R.id.rd_new_or_not);
+        rd = (RadioGroup) findViewById(R.id.rd_new_or_not);
         rd.setOnCheckedChangeListener(new RadioListener());
-        if (rd.getCheckedRadioButtonId() == R.id.rd_newgame) {
-            Logic.init_new_game_status();
-            init_new_game_view();
-        } else {
-            Logic.init_custom_status();
-            init_custom_view();
-        }
-
     }
 
 
@@ -130,20 +122,21 @@ public class WifiServerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifiserver);
-        Log.d("xiaotang", "WifiServerActivity---" + "onCreate");
+        log(tag,"onCreate");
         mcontext = this;
         mactivity = this;
+        init_view();
         start_connect_service();
     }
 
     static class MyHandler extends Handler {
 
-        WeakReference<WifiServerActivity> wifiServerActivityWeakReference=null;
-        WifiServerActivity wifiServerActivity=null;
+        WeakReference<WifiServerActivity> wifiServerActivityWeakReference = null;
+        WifiServerActivity wifiServerActivity = null;
 
-        MyHandler(WifiServerActivity wa){
-            wifiServerActivityWeakReference=new WeakReference<>(wa);
-            wifiServerActivity=wifiServerActivityWeakReference.get();
+        MyHandler(WifiServerActivity wa) {
+            wifiServerActivityWeakReference = new WeakReference<>(wa);
+            wifiServerActivity = wifiServerActivityWeakReference.get();
         }
 
         @Override
@@ -151,7 +144,7 @@ public class WifiServerActivity extends Activity {
             switch (msg.what) {
                 case 1:
                     wifiServerActivity.l.clear();
-                    ArrayList<String> temp=Tools.cast(msg.obj);
+                    ArrayList<String> temp = Tools.cast(msg.obj);
                     wifiServerActivity.l.addAll(temp);
                     wifiServerActivity.l.remove(0);
                     log(wifiServerActivity.tag, "flush listview");
@@ -168,8 +161,14 @@ public class WifiServerActivity extends Activity {
 
     @Override
     protected void onStart() {
-        init_view();
-        Log.d("xiaotang", "WifiServerActivity---" + "onStart");
+        if (rd.getCheckedRadioButtonId() == R.id.rd_newgame) {
+            Logic.init_new_game_status();
+            init_new_game_view();
+        } else {
+            Logic.init_custom_status();
+            init_custom_view();
+        }
+        log(tag,"onStart");
         super.onStart();
     }
 
@@ -182,31 +181,32 @@ public class WifiServerActivity extends Activity {
 
     @Override
     protected void onRestart() {
-        Log.d("xiaotang", "WifiServerActivity---" + "onRestart");
+        log(tag,"onRestart");
         super.onRestart();
     }
 
     @Override
     protected void onResume() {
-        Log.d("xiaotang", "WifiServerActivity---" + "onResume");
+        log(tag,"onResume");
+        CrashReport.setUserSceneTag(mcontext, 32872);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        Log.d("xiaotang", "WifiServerActivity---" + "onPause");
+        log(tag,"onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.d("xiaotang", "WifiServerActivity---" + "onStop");
+        log(tag,"onStop");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d("xiaotang", "WifiServerActivity---" + "onDestory");
+        log(tag,"onDestory");
         close_connect_service();
         setContentView(R.layout.acticity_null);
         super.onDestroy();
@@ -218,7 +218,7 @@ public class WifiServerActivity extends Activity {
             stopService(stopIntent);
             unbindService(connectionserver);
         }
-        destoryed=true;
+        destoryed = true;
     }
 
 
@@ -227,9 +227,6 @@ public class WifiServerActivity extends Activity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.bt_wifi_con_state:
-                    connectservice.get_wifi_info();
-                    break;
                 case R.id.bt_start_wifi:
                     if (Status.connected_num < 3) {
                         PokeGameTools.MyToast(mcontext, "玩家人数不足");
@@ -283,8 +280,8 @@ public class WifiServerActivity extends Activity {
                     builder_zhuang.show();
                     break;
                 case R.id.tv_levela_wifi:
-                    String[] b = new String[12];
-                    for (int i = 0; i <= 11; ++i)
+                    String[] b = new String[13];
+                    for (int i = 0; i <= 12; ++i)
                         b[i] = (i + 2) + "";
                     AlertDialog.Builder builder_levela = new AlertDialog.Builder(mcontext);
                     builder_levela.setTitle("选择我方等级");
@@ -305,8 +302,8 @@ public class WifiServerActivity extends Activity {
                     builder_levela.show();
                     break;
                 case R.id.tv_levelb_wifi:
-                    String[] c = new String[12];
-                    for (int i = 0; i <= 11; ++i)
+                    String[] c = new String[13];
+                    for (int i = 0; i <= 12; ++i)
                         c[i] = (i + 2) + "";
                     AlertDialog.Builder builder_levelb = new AlertDialog.Builder(mcontext);
                     builder_levelb.setTitle("选择对方等级");
@@ -331,18 +328,21 @@ public class WifiServerActivity extends Activity {
                         return;
                     }
                     String[] d = new String[2];
-                    d[0] = Status.level_a + "";
-                    d[1] = Status.level_b + "";
+                    d[0] = Status.level_a + "    我方";
+                    d[1] = Status.level_b + "    对家";
                     AlertDialog.Builder builder_mainlevel = new AlertDialog.Builder(mcontext);
                     builder_mainlevel.setTitle("选择主打等级");
                     builder_mainlevel.setItems(d, new DialogInterface.OnClickListener() {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            if (0 == i)
+                            if (0 == i) {
                                 Logic.setmainlevel(Status.level_a);
-                            else
+                                Desk.dk_getInstance().setMian_level_a_or_b(true);
+                            } else {
                                 Logic.setmainlevel(Status.level_b);
+                                Desk.dk_getInstance().setMian_level_a_or_b(false);
+                            }
                             tv_mainlevel_wifi.setText(Status.main_level + "");
                         }
                     });
@@ -371,8 +371,18 @@ public class WifiServerActivity extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if (adapterView.getTag() != null){
+
+                //noinspection deprecation
+                ((View) adapterView.getTag()).setBackgroundDrawable(null);
+
+            }
+
+            adapterView.setTag(view);
+
+            view.setBackgroundColor(Color.GRAY);
             Logic.setpartner(i + 2);
-            Logic.seta_or_b(i+2);
+            Logic.seta_or_b(i + 2);
             tv_partnerwifi.setText(Desk.dk_getInstance().getMember(i + 2).name);
 
         }

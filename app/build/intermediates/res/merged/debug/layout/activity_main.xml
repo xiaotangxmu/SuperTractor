@@ -1,64 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:keepScreenOn="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activity.MainActivity">
 
-    <Button
-        android:id="@+id/bt_toserver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="26dp"
-        android:layout_marginLeft="74dp"
-        android:text="创建游戏" />
-
-    <Button
-        android:id="@+id/bt_exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_toclient"
-        android:layout_alignBottom="@+id/bt_toclient"
-        android:layout_marginLeft="59dp"
-        android:layout_toRightOf="@+id/bt_toclient"
-        android:text="退出" />
-
-    <Button
-        android:id="@+id/bt_toclient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_toserver"
-        android:layout_alignBottom="@+id/bt_toserver"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/bt_toserver"
-        android:text="加入游戏" />
-
-
-    <Button
-        android:id="@+id/bt_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/bt_exit"
-        android:layout_marginRight="10dp"
-        android:text="帮助" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
-        android:orientation="horizontal"
+        android:layout_below="@+id/rl_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
         android:contentDescription="连接方式"
-        android:layout_above="@+id/bt_toclient"
-        android:layout_centerHorizontal="true">
+        android:orientation="horizontal">
 
 
         <RadioButton
@@ -66,8 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bt_toserver"
-            android:layout_alignLeft="@+id/bt_toserver"
-            android:layout_marginBottom="10dp"
             android:checked="true"
             android:text="Wifi" />
 
@@ -81,39 +40,90 @@
 
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="游戏昵称："
-        android:textSize="20sp"
-        android:layout_marginBottom="59dp"
-        android:layout_above="@+id/radioGroup"
-        android:layout_toRightOf="@+id/bt_toserver"
-        android:layout_toEndOf="@+id/bt_toserver" />
-
-    <EditText
-        android:id="@+id/ed_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/name_hint"
-        android:inputType="textPersonName"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2">
-
-        <requestFocus />
-    </EditText>
 
     <TextView
+        android:id="@+id/tv_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/bt_help"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/bt_help"
-        android:layout_alignEnd="@+id/bt_help"
-        android:layout_marginTop="14dp"
-        android:id="@+id/tv_version" />
+        android:layout_marginTop="14dp" />
+
+    <Button
+        android:id="@+id/bt_toserver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="33dp"
+        android:text="创建游戏"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="33dp" />
+
+    <Button
+        android:id="@+id/bt_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="帮助"
+        android:layout_alignBaseline="@+id/bt_exit"
+        android:layout_alignBottom="@+id/bt_exit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp" />
+
+    <Button
+        android:id="@+id/bt_toclient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加入游戏"
+        android:layout_alignBaseline="@+id/bt_toserver"
+        android:layout_alignBottom="@+id/bt_toserver"
+        android:layout_alignLeft="@+id/rl_name"
+        android:layout_alignStart="@+id/rl_name" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_name"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="59dp"
+            android:text="游戏昵称："
+            android:textSize="20sp"
+            />
+
+        <EditText
+            android:id="@+id/ed_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_alignBaseline="@+id/textView2"
+            android:textSize="18sp"
+            android:ems="6"
+            android:hint="@string/name_hint"
+            android:inputType="textPersonName">
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="退出"
+        android:layout_alignBaseline="@+id/bt_toclient"
+        android:layout_alignBottom="@+id/bt_toclient"
+        android:layout_alignRight="@+id/rl_name"
+        android:layout_alignEnd="@+id/rl_name" />
 
 </RelativeLayout>

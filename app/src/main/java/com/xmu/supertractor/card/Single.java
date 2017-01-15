@@ -15,20 +15,30 @@ public class Single extends Out_Card {
 //
 //	public int color;
 //	public int type;
-	
 
 
-	public Single(Integer p){
-		type=TypeDefine.single;
-		pokes.add(p);
-		value= PokeGameTools.getvalue(p);
-		color= PokeGameTools.getcolor(p);
-	}
-	
-	public Single(Out_Card oc){
-		type=TypeDefine.single;
-		pokes.addAll(oc.pokes);
-		value= PokeGameTools.getvalue(oc.pokes.get(0));
-		color=oc.color;		
-	}
+    public Single(Integer p) {
+        type = TypeDefine.single;
+        pokes.add(p);
+        value = PokeGameTools.getvalue(p);
+        color = PokeGameTools.getcolor(p);
+    }
+
+    public Single(Out_Card oc) {
+        type = TypeDefine.single;
+        pokes.addAll(oc.pokes);
+        value = PokeGameTools.getvalue(oc.pokes.get(0));
+        color = oc.color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        boolean flag = o instanceof Single;
+        if (!flag)
+            return false;
+        Single s = (Single) o;
+        boolean res;
+        res = this.pokes.get(0).intValue() == s.pokes.get(0).intValue();
+        return res;
+    }
 }

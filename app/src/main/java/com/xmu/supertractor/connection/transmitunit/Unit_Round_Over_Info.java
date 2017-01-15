@@ -11,8 +11,7 @@ public class Unit_Round_Over_Info implements Serializable {
     public int score;
 
     public Unit_Round_Over_Info(ArrayList<Integer> eight_card, int score) {
-        this.eight_card = eight_card;
+        this.eight_card = new ArrayList<>(eight_card);
         this.score = score;
-        this.eight_card = new ArrayList<>();
     }
 }

@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BluetoothServerActivity extends Activity {
-    public static Activity sActivity = null;
-    public static Context sContext = null;
+    public  Activity sActivity = null;
+    public  Context sContext = null;
     private TextView tv_num = null;
     private Button bt_start = null;
     private ArrayAdapter<String> arrayadapter = null;

@@ -23,6 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme">
         <activity
+            android:launchMode="singleTask"
+            android:taskAffinity="com.xmu.supertractor.activity.MainActivity"
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>

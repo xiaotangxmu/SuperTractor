@@ -22,6 +22,7 @@ public class ViewControl {
 	public static final @android.support.annotation.IdRes int id_al_north=104;
 	public static final @android.support.annotation.IdRes int id_mv_west=101;
 	public static final @android.support.annotation.IdRes int id_mv_main_card=66;
+	public static final @android.support.annotation.IdRes int id_al_call=67;
 
 
 	public static void compute(int ihei,int iwid){

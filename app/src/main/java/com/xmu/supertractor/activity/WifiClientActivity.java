@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xmu.supertractor.R;
 import com.xmu.supertractor.Tools.Tools;
 import com.xmu.supertractor.connection.wifi.service.WifiClientConnectService;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.xmu.supertractor.Tools.PrintLog.log;
-
 
 
 public class WifiClientActivity extends Activity {
@@ -58,18 +58,20 @@ public class WifiClientActivity extends Activity {
 
 
     static class MyHandler extends Handler {
-        WeakReference<WifiClientActivity> wifiClientActivityWeakReference=null;
-        WifiClientActivity wifiClientActivity=null;
-        MyHandler(WifiClientActivity wa){
-            wifiClientActivityWeakReference=new WeakReference<>(wa);
-            wifiClientActivity=wifiClientActivityWeakReference.get();
+        WeakReference<WifiClientActivity> wifiClientActivityWeakReference = null;
+        WifiClientActivity wifiClientActivity = null;
+
+        MyHandler(WifiClientActivity wa) {
+            wifiClientActivityWeakReference = new WeakReference<>(wa);
+            wifiClientActivity = wifiClientActivityWeakReference.get();
         }
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
                     wifiClientActivity.l.clear();
-                    ArrayList<String> temp= Tools.cast(msg.obj);
+                    ArrayList<String> temp = Tools.cast(msg.obj);
                     wifiClientActivity.l.addAll(temp);
                     log(wifiClientActivity.tag, "flush listview");
                     wifiClientActivity.arrayadapter.notifyDataSetChanged();
@@ -147,6 +149,7 @@ public class WifiClientActivity extends Activity {
     @Override
     protected void onResume() {
         log(tag, "onResume");
+        CrashReport.setUserSceneTag(mcontext, 32874);
         super.onResume();
     }
 
@@ -166,8 +169,10 @@ public class WifiClientActivity extends Activity {
     protected void onDestroy() {
         log(tag, "onDestroy");
         stop_connect_service();
-        uihandler.removeCallbacksAndMessages(null);
-        uihandler=null;
+        if (uihandler != null) {
+            uihandler.removeCallbacksAndMessages(null);
+            uihandler = null;
+        }
         setContentView(R.layout.acticity_null);
         super.onDestroy();
     }
@@ -178,7 +183,7 @@ public class WifiClientActivity extends Activity {
             stopService(stopIntent);
             unbindService(connectionclient);
         }
-        destoryed=true;
+        destoryed = true;
     }
 
 

@@ -1,7 +1,10 @@
 package com.xmu.supertractor.player;
 
 
+import android.util.SparseArray;
+
 import com.xmu.supertractor.card.Hand_Card;
+
 
 public class Player {
 
@@ -10,6 +13,7 @@ public class Player {
 	private boolean landlord_flag; // 地主标记
 	private boolean npc_flag; // 托管标记
 	public Hand_Card hand_card;
+
 
 	Player(String name) {
 		this.name=name;
